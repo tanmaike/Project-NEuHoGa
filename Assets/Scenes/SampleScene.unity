@@ -260,8 +260,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 164968269}
   - {fileID: 963194228}
+  - {fileID: 164968269}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &355721500
@@ -278,22 +278,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graphicsObject: {fileID: 164968268}
   walkSpeed: 4
-  runSpeed: 7
+  sprintSpeed: 7
   smoothMoveTime: 0.1
   jumpForce: 5
   gravity: 18
-  lockCursor: 1
   mouseSensitivity: 11
   pitchMinMax: {x: -40, y: 85}
-  rotationSmoothTime: 0.1
-  crouchSpeed: 0
-  crouchYScale: 0
-  startYScale: 0
+  rotationSmoothTime: 0.05
+  crouchSpeed: 2
+  crouchYScale: 1
+  startYScale: 2
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
   yaw: 5
   pitch: 0
+  isCrouching: 0
 --- !u!143 &355721501
 CharacterController:
   m_ObjectHideFlags: 0
