@@ -19,13 +19,15 @@ public class PlayerMovement : PortalTraveller {
     public float crouchSpeed;
     public float crouchYScale;
     public float startYScale;
+    private float targetYScale;
+    public float crouchTransition;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl; 
 
-    CharacterController controller;
+    private CharacterController controller;
     Camera cam;
     public float yaw;
     public float pitch;
@@ -47,9 +49,11 @@ public class PlayerMovement : PortalTraveller {
     void Start () {
         cam = Camera.main;
 
-        controller = GetComponent<CharacterController> ();
+        controller = GetComponent<CharacterController>();
 
-        startYScale = controller.height;
+        controller.height = startYScale;
+        targetYScale = startYScale;
+
         yaw = transform.eulerAngles.y;
         pitch = cam.transform.localEulerAngles.x;
         smoothYaw = yaw;
@@ -57,7 +61,7 @@ public class PlayerMovement : PortalTraveller {
     }
 
     void Update() {
-        
+
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         Vector3 inputDir = new Vector3(input.x, 0, input.y).normalized;
@@ -88,18 +92,22 @@ public class PlayerMovement : PortalTraveller {
             }
         }
 
-        if (Input.GetKeyDown(crouchKey))
-        {
+        if (Input.GetKeyDown(crouchKey)) {
             if (!jumping) {
                 isCrouching = true;
-                controller.height = crouchYScale;
+                targetYScale = crouchYScale;
             }
         }
         if (Input.GetKeyUp(crouchKey))
         {
-            isCrouching = false;
-            controller.height = startYScale;
+            if (CanStand())
+            {
+                isCrouching = false;
+                targetYScale = startYScale;
+            }
         }
+
+        smoothHeightTransition();
 
         float mX = Input.GetAxisRaw("Mouse X");
         float mY = Input.GetAxisRaw("Mouse Y");
@@ -120,6 +128,21 @@ public class PlayerMovement : PortalTraveller {
         transform.eulerAngles = Vector3.up * smoothYaw;
         cam.transform.localEulerAngles = Vector3.right * smoothPitch;
 
+    }
+
+    void smoothHeightTransition() {
+        float newHeight = Mathf.MoveTowards(controller.height, targetYScale, Time.deltaTime * crouchTransition);
+
+        float centerAdjust = (controller.height - newHeight) / 2f;
+        transform.position -= new Vector3(0, centerAdjust, 0);
+
+        controller.height = newHeight;
+    }
+    
+    bool CanStand() {
+        Vector3 start = transform.position + Vector3.up * (controller.height / 2f);
+        float checkDistance = startYScale - controller.height;
+        return !Physics.Raycast(start, Vector3.up, checkDistance + 0.05f);
     }
 
     public override void Teleport (Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot) {
