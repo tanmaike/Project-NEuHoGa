@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour {
+public class MainCamera : MonoBehaviour {
 
     Portal[] portals;
 
