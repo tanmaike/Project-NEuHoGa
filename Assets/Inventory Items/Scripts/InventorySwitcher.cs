@@ -12,10 +12,10 @@ public class InventorySwitcher : MonoBehaviour
     public KeyCode switchPreviousKey = KeyCode.E;
     public KeyCode GameKey = KeyCode.Escape;
 
-    public GameObject CurrentMenu;
-    public GameObject PreviousMenu;
-    public GameObject NextMenu;
-    public GameObject Holding;
+    private GameObject CurrentMenu;
+    private GameObject PreviousMenu;
+    private GameObject NextMenu;
+    private GameObject Holding;
     
 
     // Start is called before the first frame update

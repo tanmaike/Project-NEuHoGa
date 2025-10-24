@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 877916666563027390}
   - component: {fileID: 7579821344816887272}
   m_Layer: 5
-  m_Name: Clear Notes Prefab
+  m_Name: Clearing Button Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
