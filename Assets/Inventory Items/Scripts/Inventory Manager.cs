@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    private PlayerMovement playerMovement;
     public GameObject Notes;
     public GameObject Inventory;
     public GameObject Crafting;
@@ -23,6 +24,8 @@ public class InventoryManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
+
         CurrentMenu = Inventory;
         LeftMenu = Crafting;
         RightMenu = Notes;
@@ -63,7 +66,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(InventoryKey))
+        if (Input.GetKeyDown(InventoryKey) && !playerMovement.IsJumping())
         {
             if (IsOpen == false)
             {

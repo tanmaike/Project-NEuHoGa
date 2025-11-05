@@ -982,6 +982,7 @@ MonoBehaviour:
   crouchKey: 306
   yaw: 5
   pitch: 0
+  jumping: 0
   isCrouching: 0
 --- !u!143 &355721501
 CharacterController:
@@ -3330,6 +3331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: lshapedhallway
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e0f8d292bb638e347a3e4fabc3061118, type: 3}
+      propertyPath: m_TagString
+      value: whatIsGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4710,6 +4715,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: longstraighthallway
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cd333f82b48741d4a90bbd3fe49dfdf3, type: 3}
+      propertyPath: m_TagString
+      value: whatIsGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5873,6 +5882,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83b0f8c1842b11c4c9367baf8ca4cb5e, type: 3}
       propertyPath: m_Name
       value: 2x3room_bedroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83b0f8c1842b11c4c9367baf8ca4cb5e, type: 3}
+      propertyPath: m_TagString
+      value: whatIsGround
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

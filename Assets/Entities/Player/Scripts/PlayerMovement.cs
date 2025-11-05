@@ -42,9 +42,13 @@ public class PlayerMovement : PortalTraveller {
     Vector3 rotationSmoothVelocity;
     Vector3 currentRotation;
 
-    bool jumping;
+    public bool jumping;
     public bool isCrouching;
     float lastGroundedTime;
+
+    private bool isPaused = false;
+    private Vector3 currentVelocity;
+    private bool wasCursorLocked = true;
 
     void Start () {
         cam = Camera.main;
@@ -58,9 +62,19 @@ public class PlayerMovement : PortalTraveller {
         pitch = cam.transform.localEulerAngles.x;
         smoothYaw = yaw;
         smoothPitch = pitch;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !IsJumping())
+        {
+            TogglePause();
+        }
+        
+        if (isPaused) return;
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -85,7 +99,7 @@ public class PlayerMovement : PortalTraveller {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float timeSinceLastTouchedGround = Time.time - lastGroundedTime;
-            if (controller.isGrounded || (!jumping && !isCrouching && timeSinceLastTouchedGround < 0.15f))
+            if (!jumping && !isCrouching && timeSinceLastTouchedGround < 0.15f)
             {
                 jumping = true;
                 verticalVelocity = jumpForce;
@@ -145,15 +159,37 @@ public class PlayerMovement : PortalTraveller {
         return !Physics.Raycast(start, Vector3.up, checkDistance + 0.05f);
     }
 
-    public override void Teleport (Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot) {
+    public override void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
+    {
         transform.position = pos;
         Vector3 eulerRot = rot.eulerAngles;
-        float delta = Mathf.DeltaAngle (smoothYaw, eulerRot.y);
+        float delta = Mathf.DeltaAngle(smoothYaw, eulerRot.y);
         yaw += delta;
         smoothYaw += delta;
         transform.eulerAngles = Vector3.up * smoothYaw;
-        velocity = toPortal.TransformVector (fromPortal.InverseTransformVector (velocity));
-        Physics.SyncTransforms ();
+        velocity = toPortal.TransformVector(fromPortal.InverseTransformVector(velocity));
+        Physics.SyncTransforms();
     }
 
+    public bool IsJumping()
+    {
+        return jumping;
+    }
+    
+    void TogglePause() {
+        isPaused = !isPaused;
+
+        if (isPaused)
+        {
+            wasCursorLocked = (Cursor.lockState == CursorLockMode.Locked);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        else
+        {
+            Cursor.lockState = wasCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = false;
+        }
+    }
 }
