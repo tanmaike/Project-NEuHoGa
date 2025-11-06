@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd333f82b48741d4a90bbd3fe49dfdf3
+guid: 9eacf3b2db25e4f4bbac27a4035289dd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,17 +7,27 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ff_hallway_floor
+      name: ff_hallway_floor.008
     second: {fileID: 2100000, guid: 357062f43febabd4c8d8d949b649e12e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ff_hallway_wall
-    second: {fileID: 2100000, guid: 52c9b7766998a984dbea5435c5197099, type: 2}
+      name: ff_kitchen_floor
+    second: {fileID: 2100000, guid: e355c09170a325a47ada071ded4551ae, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ff_wooden_doorframe.005
+      name: ff_kitchen_wall
+    second: {fileID: 2100000, guid: c39d72d2bc95b4b4b9bd055b78b62d46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ff_wooden_doorframe.002
+    second: {fileID: 2100000, guid: 114a799801f199546a11fd14d5fce22d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ff_wooden_doorframe.006
     second: {fileID: 2100000, guid: 114a799801f199546a11fd14d5fce22d, type: 2}
   materials:
     materialImportMode: 2

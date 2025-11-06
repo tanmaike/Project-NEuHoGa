@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0f8d292bb638e347a3e4fabc3061118
+guid: ce33919fdfd010f4e872427e14ff20d3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -17,7 +17,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ff_wooden_doorframe
+      name: ff_wooden_doorframe.001
     second: {fileID: 2100000, guid: 114a799801f199546a11fd14d5fce22d, type: 2}
   materials:
     materialImportMode: 2
