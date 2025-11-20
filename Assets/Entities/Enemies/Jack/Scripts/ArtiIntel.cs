@@ -16,8 +16,11 @@ public class HostileAI : MonoBehaviour
 
     [Header("Patrol Settings")]
     [SerializeField] private float patrolRadius = 10f;
+    [SerializeField] private float waitTimeAtPoint = 3f;
     private Vector3 currentPatrolPoint;
     private bool hasPatrolPoint;
+    private bool isWaitingAtPoint;
+    private float waitTimer;
 
     [Header("Combat Settings")]
     [SerializeField] private float attackCooldown = 1f;
@@ -29,27 +32,14 @@ public class HostileAI : MonoBehaviour
     [SerializeField] private float visionRange = 20f;
     [SerializeField] private float engagementRange = 10f;
 
-    [Header("Portal Navigation")]
-    [SerializeField] private float portalApproachDistance = 1f;
-    
-    // Portal navigation variables
-    private AIPortalTraveller aiPortalTraveller;
-    private Vector3? currentDestination;
-    private Portal currentApproachingPortal;
-
     private bool isPlayerVisible;
     private bool isPlayerInRange;
-
-    // Stuck detection
-    private Vector3 lastPosition;
-    private float stuckTimer;
-    private const float STUCK_TIME_THRESHOLD = 2f;
 
     private void Awake()
     {
         if (playerTransform == null)
         {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerObj = GameObject.Find("Player");
             if (playerObj != null)
             {
                 playerTransform = playerObj.transform;
@@ -60,51 +50,13 @@ public class HostileAI : MonoBehaviour
         {
             navAgent = GetComponent<NavMeshAgent>();
         }
-        
-        // Get or add AIPortalTraveller component
-        aiPortalTraveller = GetComponent<AIPortalTraveller>();
-        if (aiPortalTraveller == null)
-        {
-            aiPortalTraveller = gameObject.AddComponent<AIPortalTraveller>();
-        }
     }
 
-    private void Start()
-    {
-        // Subscribe to portal teleport events
-        aiPortalTraveller.OnAITeleported += HandlePortalTeleport;
-        
-        // Configure NavMeshAgent for portal navigation
-        if (navAgent != null)
-        {
-            navAgent.autoTraverseOffMeshLink = false;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (aiPortalTraveller != null)
-        {
-            aiPortalTraveller.OnAITeleported -= HandlePortalTeleport;
-        }
-    }
 
     private void Update()
     {
         DetectPlayer();
-        CheckForStuck();
         UpdateBehaviourState();
-        
-        // Only check for portals when not attacking
-        if (!isPlayerInRange || !isPlayerVisible)
-        {
-            CheckForPortalProximity();
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        HandleOffMeshLinkMovement();
     }
 
     private void OnDrawGizmosSelected()
@@ -114,148 +66,8 @@ public class HostileAI : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRange);
-
-        // Draw current destination if set
-        if (currentDestination.HasValue)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(currentDestination.Value, 0.5f);
-            Gizmos.DrawLine(transform.position, currentDestination.Value);
-        }
-
-        // Draw portal approach distance
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, portalApproachDistance);
     }
 
-    // Portal Navigation Methods
-    private void HandlePortalTeleport(Portal sender, Portal destination, Vector3 newPosition, Quaternion newRotation)
-    {
-        Debug.Log($"{gameObject.name} teleported through portal");
-        
-        // Clear the current approaching portal
-        currentApproachingPortal = null;
-        
-        // Re-enable NavMeshAgent if it was disabled
-        if (navAgent != null && !navAgent.enabled)
-        {
-            navAgent.enabled = true;
-        }
-    }
-
-    private void HandleOffMeshLinkMovement()
-    {
-        if (navAgent.isOnOffMeshLink)
-        {
-            OffMeshLinkData linkData = navAgent.currentOffMeshLinkData;
-            
-            // Move towards the end position
-            Vector3 direction = (linkData.endPos - transform.position).normalized;
-            float moveDistance = navAgent.speed * Time.fixedDeltaTime;
-            
-            // Only move if we have a valid direction
-            if (direction.magnitude > 0.1f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, linkData.endPos, moveDistance);
-            }
-
-            // Complete the link when close enough
-            if (Vector3.Distance(transform.position, linkData.endPos) < 0.3f)
-            {
-                navAgent.CompleteOffMeshLink();
-                Debug.Log($"{gameObject.name} completed OffMeshLink");
-            }
-        }
-    }
-
-    private void CheckForPortalProximity()
-    {
-        // Only check for portals if we're moving and close to our destination
-        if (!navAgent.hasPath || navAgent.remainingDistance > 3f) return;
-
-        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, portalApproachDistance);
-        foreach (var collider in nearbyColliders)
-        {
-            Portal portal = collider.GetComponent<Portal>();
-            if (portal != null && portal != currentApproachingPortal)
-            {
-                currentApproachingPortal = portal;
-                Debug.Log($"{gameObject.name} detected portal: {portal.name}");
-                break;
-            }
-        }
-    }
-
-    private void CheckForStuck()
-    {
-        if (navAgent.hasPath && currentDestination.HasValue)
-        {
-            float distanceMoved = Vector3.Distance(transform.position, lastPosition);
-            
-            if (distanceMoved < 0.1f && navAgent.velocity.magnitude < 0.1f)
-            {
-                stuckTimer += Time.deltaTime;
-                
-                if (stuckTimer > STUCK_TIME_THRESHOLD)
-                {
-                    RecoverFromStuck();
-                    stuckTimer = 0f;
-                }
-            }
-            else
-            {
-                stuckTimer = 0f;
-            }
-        }
-        
-        lastPosition = transform.position;
-    }
-
-    private void RecoverFromStuck()
-    {
-        Debug.Log($"{gameObject.name} is stuck, attempting recovery...");
-        
-        // Clear current path
-        navAgent.ResetPath();
-        
-        // Small random movement to unstick
-        Vector3 randomDirection = Random.insideUnitSphere * 2f;
-        randomDirection.y = 0;
-        transform.position += randomDirection.normalized * 0.5f;
-        
-        // Try to recalculate path after a short delay
-        if (currentDestination.HasValue)
-        {
-            StartCoroutine(RetryPathAfterDelay(0.5f));
-        }
-    }
-
-    private IEnumerator RetryPathAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (currentDestination.HasValue)
-        {
-            Goto(currentDestination.Value);
-        }
-    }
-
-    // Public method to get current destination (for AIPortalTraveller)
-    public Vector3? GetCurrentDestination()
-    {
-        return currentDestination;
-    }
-
-    public void Goto(Vector3 destination)
-    {
-        currentDestination = destination;
-        
-        if (navAgent != null && navAgent.isOnNavMesh)
-        {
-            navAgent.SetDestination(destination);
-        }
-    }
-
-    // AI Behaviour Methods (keep your existing logic with minor updates)
     private void DetectPlayer()
     {
         isPlayerVisible = Physics.CheckSphere(transform.position, visionRange, playerLayerMask);
@@ -275,6 +87,8 @@ public class HostileAI : MonoBehaviour
 
     private void FindPatrolPoint()
     {
+        if (isWaitingAtPoint) return; 
+        
         float randomX = Random.Range(-patrolRadius, patrolRadius);
         float randomZ = Random.Range(-patrolRadius, patrolRadius);
 
@@ -284,6 +98,16 @@ public class HostileAI : MonoBehaviour
         {
             currentPatrolPoint = hit.position;
             hasPatrolPoint = true;
+            isWaitingAtPoint = false; 
+        }
+        else
+        {
+            if (Physics.Raycast(potentialPoint, -transform.up, 2f, terrainLayer))
+            {
+                currentPatrolPoint = potentialPoint;
+                hasPatrolPoint = true;
+                isWaitingAtPoint = false;
+            }
         }
     }
 
@@ -296,38 +120,63 @@ public class HostileAI : MonoBehaviour
 
     private void PerformPatrol()
     {
+        if (isWaitingAtPoint)
+        {
+            waitTimer += Time.deltaTime;
+            if (waitTimer >= waitTimeAtPoint)
+            {
+                isWaitingAtPoint = false;
+                waitTimer = 0f;
+                hasPatrolPoint = false;
+                navAgent.isStopped = false; // ADD THIS LINE
+                FindPatrolPoint();
+            }
+            return;
+        }
+
         if (!hasPatrolPoint)
+        {
             FindPatrolPoint();
+            return;
+        }
 
         if (hasPatrolPoint)
-            Goto(currentPatrolPoint);
+        {
+            navAgent.SetDestination(currentPatrolPoint);
+            
+            if (navAgent.remainingDistance <= navAgent.stoppingDistance && !navAgent.pathPending)
+            {
+                if (!isWaitingAtPoint)
+                {
+                    StartWaitingAtPoint();
+                }
+            }
+        }
+    }
 
-        if (hasPatrolPoint && Vector3.Distance(transform.position, currentPatrolPoint) < 1f)
-            hasPatrolPoint = false;
+    private void StartWaitingAtPoint()
+    {
+        isWaitingAtPoint = true;
+        waitTimer = 0f;
+        navAgent.isStopped = true; 
     }
 
     private void PerformChase()
     {
         if (playerTransform != null)
         {
-            Goto(playerTransform.position);
+            navAgent.SetDestination(playerTransform.position);
         }
     }
 
     private void PerformAttack()
     {
-        // Stop movement when attacking
-        if (navAgent.hasPath)
-            navAgent.ResetPath();
+        navAgent.SetDestination(transform.position);
+
 
         if (playerTransform != null)
         {
-            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
-            if (directionToPlayer.magnitude > 0.1f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-            }
+            transform.LookAt(playerTransform);
         }
 
         if (!isOnAttackCooldown)

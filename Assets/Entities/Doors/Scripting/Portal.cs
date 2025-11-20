@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Portal : MonoBehaviour {
     [Header ("Main Settings")]
@@ -13,13 +12,6 @@ public class Portal : MonoBehaviour {
     public float nearClipOffset = 0.05f;
     public float nearClipLimit = 0.2f;
 
-    [Header ("AI Navigation")]
-    public float offMeshLinkResolution = 0.2f;
-    public Transform offMeshLinkRef1;
-    public Transform offMeshLinkRef2;
-    public int offMeshLinkArea;
-    private readonly List<PortalOffMeshLink> offMeshLinks = new List<PortalOffMeshLink>();
-
     // Private variables
     RenderTexture viewTexture;
     Camera portalCam;
@@ -28,10 +20,6 @@ public class Portal : MonoBehaviour {
     List<PortalTraveller> trackedTravellers;
     MeshFilter screenMeshFilter;
 
-    private struct PortalOffMeshLink {
-        public Transform RefTransform;
-    }
-
     void Awake () {
         playerCam = Camera.main;
         portalCam = GetComponentInChildren<Camera> ();
@@ -39,40 +27,6 @@ public class Portal : MonoBehaviour {
         trackedTravellers = new List<PortalTraveller> ();
         screenMeshFilter = screen.GetComponent<MeshFilter> ();
         screen.material.SetInt ("displayMask", 1);
-
-        var directionToRef2 = offMeshLinkRef2.position - offMeshLinkRef1.position;
-        var distanceToGenerate = directionToRef2.magnitude;
-        directionToRef2.Normalize();
-
-        for (var currentDistance = 0f; currentDistance <= distanceToGenerate; currentDistance += offMeshLinkResolution)
-        {
-            var newPosition = offMeshLinkRef1.position + directionToRef2 * currentDistance;
-            var newTransform = new GameObject("[AUTO] OffMeshLink Transform").transform;
-            newTransform.parent = transform;
-            newTransform.position = newPosition;
-
-            offMeshLinks.Add(new PortalOffMeshLink()
-            {
-                RefTransform = newTransform
-            });
-        }
-    }
-
-    void Start ()
-    {
-        for (var i = 0; i < offMeshLinks.Count; i++)
-        {
-            var offMeshLink = offMeshLinks[i];
-
-            var newLink = offMeshLink.RefTransform.gameObject.AddComponent<OffMeshLink>();
-            newLink.startTransform = offMeshLink.RefTransform;
-            newLink.endTransform = linkedPortal.offMeshLinks[offMeshLinks.Count - 1 - i].RefTransform;
-            newLink.biDirectional = false;
-            newLink.costOverride = -1;
-            newLink.autoUpdatePositions = false;
-            newLink.activated = true;
-            newLink.area = offMeshLinkArea;
-        }
     }
 
     void LateUpdate () {
@@ -93,28 +47,18 @@ public class Portal : MonoBehaviour {
             if (portalSide != portalSideOld) {
                 var positionOld = travellerT.position;
                 var rotOld = travellerT.rotation;
-                traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
-                
-                HandleAITeleport(traveller, m.GetColumn(3), m.rotation);
-                
-                traveller.graphicsClone.transform.SetPositionAndRotation(positionOld, rotOld);
-                linkedPortal.OnTravellerEnterPortal(traveller);
-                trackedTravellers.RemoveAt(i);
+                traveller.Teleport (transform, linkedPortal.transform, m.GetColumn (3), m.rotation);
+                traveller.graphicsClone.transform.SetPositionAndRotation (positionOld, rotOld);
+                // Can't rely on OnTriggerEnter/Exit to be called next frame since it depends on when FixedUpdate runs
+                linkedPortal.OnTravellerEnterPortal (traveller);
+                trackedTravellers.RemoveAt (i);
                 i--;
+
             } else {
                 traveller.graphicsClone.transform.SetPositionAndRotation (m.GetColumn (3), m.rotation);
                 //UpdateSliceParams (traveller);
                 traveller.previousOffsetFromPortal = offsetFromPortal;
             }
-        }
-    }
-
-    private void HandleAITeleport(PortalTraveller traveller, Vector3 newPosition, Quaternion newRotation)
-    {
-        var portalNavHandler = traveller.GetComponent<PortalNavigationHandler>();
-        if (portalNavHandler != null)
-        {
-            portalNavHandler.HandlePortalTeleport(this, linkedPortal, newPosition, newRotation);
         }
     }
 
