@@ -6,7 +6,6 @@ public class CraftingLogic : MonoBehaviour
 {
     public GameObject Arrow;
     public GameObject CraftButton;
-    public RecipeActivator RecipeActivator;
     public GameObject Requirements;
     public GameObject Results;
     public void Display()
@@ -20,7 +19,6 @@ public class CraftingLogic : MonoBehaviour
     {
         Arrow.SetActive(false);
         CraftButton.SetActive(false);
-        RecipeActivator.clear();
         Requirements.SetActive(false);
         Results.SetActive(false);
     }
