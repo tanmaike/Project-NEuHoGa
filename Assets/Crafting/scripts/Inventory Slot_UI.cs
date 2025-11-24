@@ -17,6 +17,19 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     private static InventorySlot_UI currentlyDragging;
     private static GameObject dragIcon;
 
+    // Handle right-click to drop items
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            // Drop one item on right click
+            if (inventory.slots[slotIndex].item != null)
+            {
+                inventory.DropItem(slotIndex, 1);
+            }
+        }
+    }
+
     // This updates the slot's visual (icon and quantity)
     public void UpdateSlot(InventorySlot slot)
     {
@@ -66,11 +79,13 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     {
         if (currentlyDragging == null) return;
 
-        // If we didn't drop on a valid slot, reset the original
-        if (eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<InventorySlot_UI>() == null)
+        // If dropped outside UI, drop the item
+        if (eventData.pointerEnter == null || 
+            (eventData.pointerEnter.GetComponent<InventorySlot_UI>() == null && 
+             eventData.pointerEnter.GetComponentInParent<InventorySlot_UI>() == null))
         {
-            // Reset visibility
-            UpdateSlot(inventory.slots[slotIndex]);
+            // Drop the entire stack
+            inventory.DropAllFromSlot(currentlyDragging.slotIndex);
         }
         
         currentlyDragging = null;

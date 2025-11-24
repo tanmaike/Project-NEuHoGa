@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &6626206
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   patrolRadius: 40
-  waitTimeAtPoint: 0
+  waitTimeAtPoint: 5
   attackCooldown: 2.5
   forwardShotForce: 25
   verticalShotForce: 25
@@ -1117,7 +1117,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232992420}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2112,6 +2112,63 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: -570}
   m_SizeDelta: {x: 190, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &417826628
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4350763396702669650, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_Name
+      value: Plate1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 79.81401
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -39.29311
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444735853203842118, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8819d434a360411383e5d63d4c3f306, type: 3}
 --- !u!23 &421128909 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7097360371704352345, guid: ecc22955a96e5435491fdc2b378627c0, type: 3}
@@ -2637,6 +2694,18 @@ PrefabInstance:
     - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: SlideDirection.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
@@ -3228,6 +3297,14 @@ PrefabInstance:
       propertyPath: SlideDirection.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
       value: Living Room Bathroom Door
@@ -3407,6 +3484,14 @@ PrefabInstance:
     - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: SlideDirection.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
@@ -4775,6 +4860,14 @@ PrefabInstance:
       propertyPath: SlideDirection.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.84
+      objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
       value: Kitchen-Dining Room Door
@@ -4910,6 +5003,14 @@ PrefabInstance:
     - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: SlideDirection.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
@@ -5597,7 +5698,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354118563}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6002,6 +6103,18 @@ PrefabInstance:
       propertyPath: SlideDirection.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.84
+      objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
       value: Living Room-Dining Room Door
@@ -6128,7 +6241,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: []
-  capacity: 9
+  capacity: 6
+  dropPoint: 1.5
+  dropHeight: 0.5
 --- !u!4 &1655760866
 Transform:
   m_ObjectHideFlags: 0
@@ -7007,6 +7122,10 @@ PrefabInstance:
     - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: SlideDirection.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472668048731491830, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.84
       objectReference: {fileID: 0}
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
@@ -7952,3 +8071,4 @@ SceneRoots:
   - {fileID: 41361730}
   - {fileID: 2143336581}
   - {fileID: 1265903600}
+  - {fileID: 417826628}

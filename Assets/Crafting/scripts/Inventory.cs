@@ -10,6 +10,12 @@ public class Inventory : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public int capacity = 20; // e.g., 5x4 grid
 
+    [Header("Dropping Items")]
+    public float dropPoint = 1.5f;
+    public float dropHeight = -3f;
+
+    private Transform playerTransform;
+
     private void Awake()
     {
         // Initialize the inventory with empty slots
@@ -17,6 +23,8 @@ public class Inventory : MonoBehaviour
         {
             slots.Add(new InventorySlot(null, 0));
         }
+
+        playerTransform = Camera.main.transform;
     }
 
     // Add an item to the inventory
@@ -47,7 +55,103 @@ public class Inventory : MonoBehaviour
         return false; // Inventory is full
     }
 
-    // Remove items from the inventory
+    // Remove a specific quantity from a specific slot
+    public void RemoveFromSlot(int slotIndex, int quantityToRemove)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count) return;
+        
+        var slot = slots[slotIndex];
+        if (slot.item != null && slot.quantity >= quantityToRemove)
+        {
+            slot.quantity -= quantityToRemove;
+            if (slot.quantity <= 0)
+            {
+                slots[slotIndex] = new InventorySlot(null, 0);
+            }
+            OnSlotChanged?.Invoke(slotIndex);
+        }
+    }
+
+    // Drop an item from a specific slot
+    public void DropItem(int slotIndex, int quantityToDrop = 1)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count) return;
+        
+        var slot = slots[slotIndex];
+        if (slot.item != null && slot.quantity >= quantityToDrop)
+        {
+            Vector3 dropPoint = GetPlayerDropPosition();
+            Debug.Log($"Dropping item at player position: {dropPoint}");
+            
+            // Spawn the world item
+            SpawnInteractableItem(slot.item, quantityToDrop, dropPoint);
+            
+            // Remove from inventory
+            RemoveFromSlot(slotIndex, quantityToDrop);
+        }
+    }
+
+    public void DropAllFromSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count) return;
+        
+        var slot = slots[slotIndex];
+        if (slot.item != null)
+        {
+            Vector3 dropPoint = GetPlayerDropPosition();
+            SpawnInteractableItem(slot.item, slot.quantity, dropPoint);
+            slots[slotIndex] = new InventorySlot(null, 0);
+            OnSlotChanged?.Invoke(slotIndex);
+        }
+    }
+
+    private Vector3 GetPlayerDropPosition()
+    {
+        if (playerTransform != null)
+        {
+            Vector3 dropPos = playerTransform.position + playerTransform.forward * dropPoint;
+            dropPos.y += dropHeight; 
+            return dropPos;
+        }
+        
+        // Fallback
+        return transform.position + Vector3.forward * dropPoint;
+    }
+
+    private void SpawnInteractableItem(Item item, int quantity, Vector3 position)
+    {
+        InteractableItem existingInteractableItem = FindExistingInteractableItem(item);
+        if (existingInteractableItem != null)
+        {
+            existingInteractableItem.quantity = quantity;
+            existingInteractableItem.DropItem(position);
+            return;
+        }
+        
+        GameObject interactableItemGO = new GameObject($"InteractableItem_{item.itemName}");
+        
+        InteractableItem interactableItem = interactableItemGO.AddComponent<InteractableItem>();
+        interactableItem.item = item;
+        interactableItem.quantity = quantity;
+        
+        position.y += 4f;
+        interactableItem.DropItem(position);
+    }
+
+    // Helper method to find existing disabled world items of the same type
+    private InteractableItem FindExistingInteractableItem(Item item)
+    {
+        InteractableItem[] allInteractableItems = FindObjectsOfType<InteractableItem>(true); // include inactive
+        foreach (InteractableItem interactableItem in allInteractableItems)
+        {
+            if (interactableItem.item == item && !interactableItem.gameObject.activeInHierarchy)
+            {
+                return interactableItem;
+            }
+        }
+        return null;
+    }
+
     public void RemoveItems(List<Ingredient> itemsToRemove)
     {
         foreach (var itemToRemove in itemsToRemove)
@@ -61,10 +165,10 @@ public class Inventory : MonoBehaviour
                         slots[i].quantity -= itemToRemove.quantity;
                         if (slots[i].quantity <= 0)
                         {
-                            slots[i] = new InventorySlot(null, 0); // Clear slot
+                            slots[i] = new InventorySlot(null, 0);
                         }
-                        OnSlotChanged?.Invoke(i); // Notify UI
-                        break; // Move to the next itemToRemove
+                        OnSlotChanged?.Invoke(i);
+                        break;
                     }
                 }
             }
@@ -87,7 +191,7 @@ public class Inventory : MonoBehaviour
         slots[indexA] = slots[indexB];
         slots[indexB] = temp;
 
-        OnSlotChanged?.Invoke(indexA); // Notify UI
-        OnSlotChanged?.Invoke(indexB); // Notify UI
+        OnSlotChanged?.Invoke(indexA);
+        OnSlotChanged?.Invoke(indexB);
     }
 }
