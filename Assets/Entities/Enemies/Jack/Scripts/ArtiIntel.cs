@@ -35,8 +35,13 @@ public class HostileAI : MonoBehaviour
     private bool isPlayerVisible;
     private bool isPlayerInRange;
 
+    [Header("Collider Reference")]
+    [SerializeField] private Collider aiCollider;
+
     private void Awake()
     {
+        navAgent = GetComponent<NavMeshAgent>();
+
         if (playerTransform == null)
         {
             GameObject playerObj = GameObject.Find("Player");
@@ -50,8 +55,17 @@ public class HostileAI : MonoBehaviour
         {
             navAgent = GetComponent<NavMeshAgent>();
         }
+        
+        if (aiCollider == null)
+        {
+            aiCollider = GetComponent<Collider>();
+        }
+        
+        if (aiCollider != null)
+        {
+            aiCollider.isTrigger = false;
+        }
     }
-
 
     private void Update()
     {
