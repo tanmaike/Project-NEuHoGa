@@ -6,7 +6,6 @@ public class DoorTrigger : MonoBehaviour
     public Door door; 
     public float distance = 3f;
     public LayerMask layerMask;
-
     private bool? isOpen = null; 
 
     private void Start()

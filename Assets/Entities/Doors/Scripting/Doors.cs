@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Door : MonoBehaviour, IInteractable  // Add the interface implementation
+public class Door : MonoBehaviour, IInteractable
 {
     public bool IsOpen = false;
     [SerializeField]
@@ -22,15 +23,17 @@ public class Door : MonoBehaviour, IInteractable  // Add the interface implement
     private Vector3 StartRotation;
     private Vector3 StartPosition;
     private Vector3 Forward;
-
+    public NavMeshObstacle navObstacle;
     private Coroutine AnimationCoroutine;
 
     private void Awake()
     {
         StartRotation = transform.localEulerAngles;
-        // Since "Forward" actually is pointing into the door frame, choose a direction to think about as "forward" 
         Forward = transform.right;
         StartPosition = transform.position;
+        
+        if (navObstacle != null)
+            navObstacle.enabled = false;
     }
 
 
@@ -61,6 +64,8 @@ public class Door : MonoBehaviour, IInteractable  // Add the interface implement
     {
         if (!IsOpen)
         {
+            if (navObstacle != null)
+                    navObstacle.enabled = true;
             if (AnimationCoroutine != null)
             {
                 StopCoroutine(AnimationCoroutine);
@@ -124,6 +129,8 @@ public class Door : MonoBehaviour, IInteractable  // Add the interface implement
     {
         if (IsOpen)
         {
+            if (navObstacle != null)
+                    navObstacle.enabled = false;
             if (AnimationCoroutine != null)
             {
                 StopCoroutine(AnimationCoroutine);

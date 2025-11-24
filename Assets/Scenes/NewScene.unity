@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!195 &6626206
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.6
-  m_Speed: 2
+  m_Speed: 1.75
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -7011,6 +7011,14 @@ PrefabInstance:
     - target: {fileID: 5539833306996008508, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: m_Name
       value: Bedroom Bathroom Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126016797244741681, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_Carve
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126016797244741681, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: m_CarveOnlyStationary
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

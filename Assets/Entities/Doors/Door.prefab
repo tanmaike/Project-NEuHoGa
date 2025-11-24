@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 2616047534208418054}
+  navObstacle: {fileID: 0}
   distance: 3
   layerMask:
     serializedVersion: 2
@@ -303,6 +304,7 @@ MonoBehaviour:
   ForwardDirection: 0
   SlideDirection: {x: 0, y: 0, z: -1}
   SlideAmount: 1.9
+  navObstacle: {fileID: 6126016797244741681}
 --- !u!114 &3096246419557721105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +336,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.80700004, y: 0.045, z: 1.238}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.80700004, y: 0, z: 0.001}
   m_TimeToStationary: 0.5
