@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerEquipment : MonoBehaviour
+{
+    public Transform handSlot;
+    private GameObject equippedObject;
+    public Item equippedItem;
+
+    public void Equip(Item item)
+    {
+        Unequip();
+
+        if (item == null || item.icon == null) {
+            Debug.LogWarning("Item is null!");
+            return;
+        }
+
+        equippedItem = item;
+
+        equippedObject = new GameObject("EquippedItem");
+        
+        SpriteRenderer spriteRenderer = equippedObject.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = item.icon;
+        
+        equippedObject.transform.SetParent(handSlot);
+        equippedObject.transform.localPosition = Vector3.zero;
+        equippedObject.transform.localRotation = Quaternion.identity;
+    }
+
+    public void Unequip()
+    {
+        if (equippedObject != null) Destroy(equippedObject);
+
+        equippedObject = null;
+        equippedItem = null;
+    }
+}

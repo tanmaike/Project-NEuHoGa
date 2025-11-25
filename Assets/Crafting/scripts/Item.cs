@@ -7,5 +7,4 @@ public class Item : ScriptableObject
     public string itemName = "New Item";
     public Sprite icon = null;
     public int maxStack = 64;
-    // Add other properties like 'isConsumable', 'damage', 'value', etc.
 }

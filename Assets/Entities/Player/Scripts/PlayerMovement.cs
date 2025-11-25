@@ -48,7 +48,6 @@ public class PlayerMovement : PortalTraveller {
 
     private bool isPaused = false;
     private Vector3 currentVelocity;
-    private bool wasCursorLocked = true;
 
     void Start () {
         cam = Camera.main;
@@ -68,11 +67,6 @@ public class PlayerMovement : PortalTraveller {
     }
 
     void Update() {
-
-        if (Input.GetKeyDown(KeyCode.Escape) && !IsJumping())
-        {
-            TogglePause();
-        }
         
         if (isPaused) return;
 
@@ -179,16 +173,21 @@ public class PlayerMovement : PortalTraveller {
     void TogglePause() {
         isPaused = !isPaused;
 
-        if (isPaused)
+        SetInventoryState(isPaused);
+    }
+
+    public void SetInventoryState(bool open)
+    {
+        isPaused = open;
+
+        if (open)
         {
-            wasCursorLocked = (Cursor.lockState == CursorLockMode.Locked);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-
         else
         {
-            Cursor.lockState = wasCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
     }

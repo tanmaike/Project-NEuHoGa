@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems; // Required for drag/drop interfaces
 using TMPro; // Use TextMeshPro for quantity text
 
-public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler 
 {
     [Header("UI Elements")]
     public Image icon;
@@ -20,12 +20,23 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     // Handle right-click to drop items
     public void OnPointerClick(PointerEventData eventData)
     {
+        var slot = inventory.slots[slotIndex];
+
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            // Drop one item on right click
-            if (inventory.slots[slotIndex].item != null)
-            {
+            if (slot.item != null)
                 inventory.DropItem(slotIndex, 1);
+            return;
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (slot.item != null)
+            {
+                PlayerEquipment equipment = FindObjectOfType<PlayerEquipment>();
+                if (equipment != null) {
+                    equipment.Equip(slot.item);
+                }
             }
         }
     }
