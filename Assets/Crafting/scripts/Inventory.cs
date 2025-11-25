@@ -24,7 +24,8 @@ public class Inventory : MonoBehaviour
             slots.Add(new InventorySlot(null, 0));
         }
 
-        playerTransform = Camera.main.transform;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = player.transform.Find("dropOrigin");
     }
 
     // Add an item to the inventory
@@ -63,6 +64,7 @@ public class Inventory : MonoBehaviour
         var slot = slots[slotIndex];
         if (slot.item != null && slot.quantity >= quantityToRemove)
         {
+            TryUnequipIfEquipped(slot.item);
             slot.quantity -= quantityToRemove;
             if (slot.quantity <= 0)
             {
@@ -80,6 +82,7 @@ public class Inventory : MonoBehaviour
         var slot = slots[slotIndex];
         if (slot.item != null && slot.quantity >= quantityToDrop)
         {
+            TryUnequipIfEquipped(slot.item);
             Vector3 dropPoint = GetPlayerDropPosition();
             Debug.Log($"Dropping item at player position: {dropPoint}");
             
@@ -98,6 +101,7 @@ public class Inventory : MonoBehaviour
         var slot = slots[slotIndex];
         if (slot.item != null)
         {
+            TryUnequipIfEquipped(slot.item);
             Vector3 dropPoint = GetPlayerDropPosition();
             SpawnInteractableItem(slot.item, slot.quantity, dropPoint);
             slots[slotIndex] = new InventorySlot(null, 0);
@@ -106,15 +110,8 @@ public class Inventory : MonoBehaviour
     }
 
     private Vector3 GetPlayerDropPosition()
-    {
-        if (playerTransform != null)
-        {
-            Vector3 dropPos = playerTransform.position + playerTransform.forward * dropPoint;
-            dropPos.y += dropHeight; 
-            return dropPos;
-        }
-        
-        // Fallback
+{
+        if (playerTransform != null) return playerTransform.position + playerTransform.forward * dropPoint;
         return transform.position + Vector3.forward * dropPoint;
     }
 
@@ -134,7 +131,7 @@ public class Inventory : MonoBehaviour
         interactableItem.item = item;
         interactableItem.quantity = quantity;
         
-        position.y += 4f;
+        position.y += -0.2f;
         interactableItem.DropItem(position);
     }
 
@@ -194,4 +191,13 @@ public class Inventory : MonoBehaviour
         OnSlotChanged?.Invoke(indexA);
         OnSlotChanged?.Invoke(indexB);
     }
+
+    private void TryUnequipIfEquipped(Item item)
+{
+    PlayerEquipment equip = FindObjectOfType<PlayerEquipment>();
+    if (equip != null && equip.equippedItem == item)
+    {
+        equip.Unequip();
+    }
+}
 }

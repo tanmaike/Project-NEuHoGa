@@ -23,6 +23,13 @@ public class Door : MonoBehaviour, IInteractable
     private Vector3 StartRotation;
     private Vector3 StartPosition;
     private Vector3 Forward;
+
+    [Header("Key Configuration")]
+    [SerializeField]
+    public bool needsKey = false;
+    public Item requiredKey;
+
+    [Header("Navmesh Configs")]
     public NavMeshObstacle navObstacle;
     private Coroutine AnimationCoroutine;
 
@@ -37,8 +44,14 @@ public class Door : MonoBehaviour, IInteractable
     }
 
 
-    public void Interact(Vector3 interactorPosition)
+    public void Interact(Vector3 interactorPosition, Item item)
     {
+        if (needsKey && item != requiredKey)
+        {
+            Debug.Log("Door is locked. Requires key: " + requiredKey.itemName);
+            return;
+        }
+        else needsKey = false; // permamnently unlocks the door
         if (!IsOpen)
         {
             Open(interactorPosition);

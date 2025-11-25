@@ -1748,6 +1748,7 @@ Transform:
   m_Children:
   - {fileID: 963194228}
   - {fileID: 164968269}
+  - {fileID: 661274517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &355721500
@@ -1822,6 +1823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handSlot: {fileID: 278893823}
   equippedItem: {fileID: 0}
+  interactor: {fileID: 963194231}
 --- !u!1 &368195141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,9 +2378,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: needsKey
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: SlideAmount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
+      propertyPath: requiredKey
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ba10c8c4cfbe644091627f754f9d8db, type: 2}
     - target: {fileID: 2616047534208418054, guid: fda899cd6fcc7df499f07b4433158b62, type: 3}
       propertyPath: ForwardDirection
       value: 0
@@ -2633,6 +2643,37 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7097360371704352345, guid: ecc22955a96e5435491fdc2b378627c0, type: 3}
   m_PrefabInstance: {fileID: 696120915}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &661274516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661274517}
+  m_Layer: 7
+  m_Name: dropOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &661274517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661274516}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.727}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355721499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &675809496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4431,6 +4472,7 @@ MonoBehaviour:
   InteractorSource: {fileID: 963194228}
   InteractRange: 3
   interactKey: 101
+  equippedItem: {fileID: 0}
 --- !u!1 &965859145
 GameObject:
   m_ObjectHideFlags: 0
@@ -6287,9 +6329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9729945d9555040b751899c0c0d177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots:
-  - item: {fileID: 11400000, guid: 3ba10c8c4cfbe644091627f754f9d8db, type: 2}
-    quantity: 1
+  slots: []
   capacity: 6
   dropPoint: 1.5
   dropHeight: 0.5

@@ -7,6 +7,7 @@ public class PlayerEquipment : MonoBehaviour
     public Transform handSlot;
     private GameObject equippedObject;
     public Item equippedItem;
+    public Interactor interactor;
 
     public void Equip(Item item)
     {
@@ -18,6 +19,7 @@ public class PlayerEquipment : MonoBehaviour
         }
 
         equippedItem = item;
+        interactor.SetEquippedItem(item);
 
         equippedObject = new GameObject("EquippedItem");
         
@@ -35,5 +37,8 @@ public class PlayerEquipment : MonoBehaviour
 
         equippedObject = null;
         equippedItem = null;
+        
+        if (interactor != null)
+            interactor.SetEquippedItem(null);
     }
 }

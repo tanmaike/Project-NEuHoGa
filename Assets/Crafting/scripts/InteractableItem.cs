@@ -71,7 +71,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     }
     
     // i love scaling up
-    public void Interact(Vector3 interactorPosition)
+    public void Interact(Vector3 interactorPosition, Item item)
     {
         if (!canBePickedUp) return;
         
