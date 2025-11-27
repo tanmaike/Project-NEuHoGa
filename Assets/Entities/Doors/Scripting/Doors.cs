@@ -5,10 +5,15 @@ using UnityEngine.AI;
 public class Door : MonoBehaviour, IInteractable
 {
     public bool IsOpen = false;
-    [SerializeField]
-    private bool IsRotatingDoor = true;
+    public bool isPaired = false;
+    public Door pairedDoor;
+    [Header("Portal Configs")]
+    public bool isPortalDoor = false;
+    public Portal portal;
     [SerializeField]
     private float Speed = 1f;
+    [SerializeField]
+    private bool IsRotatingDoor = true;
     [Header("Rotation Configs")]
     [SerializeField]
     private float RotationAmount = 90f;
@@ -35,12 +40,12 @@ public class Door : MonoBehaviour, IInteractable
 
     private void Awake()
     {
+        if (isPortalDoor) portal.gameObject.SetActive(false);
         StartRotation = transform.localEulerAngles;
         Forward = transform.right;
         StartPosition = transform.position;
         
-        if (navObstacle != null)
-            navObstacle.enabled = false;
+        if (navObstacle != null) navObstacle.enabled = false;
     }
 
 
@@ -54,10 +59,12 @@ public class Door : MonoBehaviour, IInteractable
         else needsKey = false; // permamnently unlocks the door
         if (!IsOpen)
         {
+            if (isPaired) pairedDoor.Open(interactorPosition); 
             Open(interactorPosition);
         }
         else
         {
+            if (isPaired) pairedDoor.Close();
             Close();
         }
     }
@@ -77,8 +84,8 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!IsOpen)
         {
-            if (navObstacle != null)
-                    navObstacle.enabled = true;
+            if (isPortalDoor) portal.gameObject.SetActive(true);
+            if (navObstacle != null) navObstacle.enabled = true;
             if (AnimationCoroutine != null)
             {
                 StopCoroutine(AnimationCoroutine);
@@ -176,6 +183,7 @@ public class Door : MonoBehaviour, IInteractable
         }
         
         transform.rotation = endRotation;
+        if (isPortalDoor) portal.gameObject.SetActive(false);
     }
 
     private IEnumerator DoSlidingClose()
@@ -192,5 +200,6 @@ public class Door : MonoBehaviour, IInteractable
             yield return null;
             time += Time.deltaTime * Speed;
         }
+        if (isPortalDoor) portal.gameObject.SetActive(false);
     }
 }
