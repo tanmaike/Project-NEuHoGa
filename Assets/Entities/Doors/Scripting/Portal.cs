@@ -317,4 +317,24 @@ public class Portal : MonoBehaviour {
             linkedPortal.linkedPortal = this;
         }
     }
+
+    /* Door logic steps:
+        - On start, make sure the portal is turned off IF a door is attached
+        - Ensure that the door is never copied/Ensure that Doors are never considered in Portal Traveller
+        - When door is opened, check if it is attached to a specific portal
+            - If not, ignore portal-related logic 
+            - If it is, 
+                - Activate the portal and the attached portal as soon as possible
+                - Open the door *and* the the door of the linked portal
+        - When door is closed, check if it is attached to a specific portal
+            - If not, ignore portal-related logic 
+            - If it is, 
+                - Close the door *and* the the door of the linked portal
+                - Dectivate the portal and the attached portal as soon as the door finishes closing
+    - To note:
+        - Are two doors really needed?
+            - Either 
+                - Turn off one door for portal linkage
+                - Make sure that both doors open in the same direction
+    */
 }
