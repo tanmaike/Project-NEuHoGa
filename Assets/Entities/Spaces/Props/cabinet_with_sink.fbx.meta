@@ -3,7 +3,22 @@ guid: 44b7ec557f0b6ee4890eafb0e1226c19
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_kitchen_sink
+    second: {fileID: 2100000, guid: 480cae2da747549ee8cd23d62294448c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_sink_cabinets
+    second: {fileID: 2100000, guid: 7f7582bed66924b6d826d9de00fead81, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_sink_facuet
+    second: {fileID: 2100000, guid: d78eed2b1828148bf8248e75b1a79924, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

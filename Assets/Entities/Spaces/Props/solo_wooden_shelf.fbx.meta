@@ -3,7 +3,12 @@ guid: 9862a7386aed39f47a39b8ea5d701fc6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_hallway_floor
+    second: {fileID: 2100000, guid: 357062f43febabd4c8d8d949b649e12e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

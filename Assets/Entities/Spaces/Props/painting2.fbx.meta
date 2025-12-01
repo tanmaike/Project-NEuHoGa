@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 0848a40dac883f64dafc120d1716ab4f
+guid: b2ab432c6443a42e792da05a204a0e90
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_painting
+    second: {fileID: 2100000, guid: 5563e3aabdcae4c88815260fc730e2c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_wood
+    second: {fileID: 2100000, guid: 4edbdf89d3acf4208b82cd238690eafb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

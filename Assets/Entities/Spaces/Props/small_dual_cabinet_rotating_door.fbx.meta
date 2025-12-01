@@ -3,7 +3,12 @@ guid: b91b38f26dca7654683be05546d2f1fb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_cabinet_door
+    second: {fileID: 2100000, guid: 169d76529c9ec4e55b69e878e4c7b90f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

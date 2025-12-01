@@ -3,7 +3,17 @@ guid: 6c50dce6470002441bf6e17330b43c8e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_couch
+    second: {fileID: 2100000, guid: aebcf3136ce2d45d5b4a2eab6ddfcef6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_wood
+    second: {fileID: 2100000, guid: 4edbdf89d3acf4208b82cd238690eafb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

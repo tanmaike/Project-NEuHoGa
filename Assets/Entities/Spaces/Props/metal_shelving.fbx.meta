@@ -3,7 +3,12 @@ guid: 1359ba271063a30489ab8b00a20cea9c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gps_metal_floor
+    second: {fileID: 2100000, guid: b35094eaf984c35429c73f12467195b0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
