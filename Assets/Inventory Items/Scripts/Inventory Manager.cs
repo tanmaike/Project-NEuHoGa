@@ -11,8 +11,6 @@ public class InventoryManager : MonoBehaviour
     public KeyCode switchRightKey = KeyCode.Q;
     public KeyCode switchLeftKey = KeyCode.E;
     public KeyCode InventoryKey = KeyCode.Escape;
-    public CraftingLogic CraftingLogic; 
-    public ClearNotes clearNotes;
     bool IsOpen = false;
 
     private GameObject CurrentMenu;
@@ -47,8 +45,6 @@ public class InventoryManager : MonoBehaviour
                 CurrentMenu = RightMenu;
                 RightMenu = LeftMenu;
                 LeftMenu = Holding;
-                CraftingLogic.Reset();
-                clearNotes.Deactivate();
                 Debug.Log("Q pressed");
             }
 
@@ -60,8 +56,6 @@ public class InventoryManager : MonoBehaviour
                 CurrentMenu = LeftMenu;
                 LeftMenu = RightMenu;
                 RightMenu = Holding;
-                CraftingLogic.Reset();
-                clearNotes.Deactivate();
                 Debug.Log("E pressed");
             }
         }
@@ -72,7 +66,6 @@ public class InventoryManager : MonoBehaviour
             {
                 CurrentMenu.SetActive(true);
                 IsOpen = true;
-                playerMovement.SetInventoryState(true);
                 Debug.Log("esc pressed to on");
             }
             else
@@ -84,7 +77,6 @@ public class InventoryManager : MonoBehaviour
                 RightMenu.SetActive(false);
                 CurrentMenu.SetActive(false);
                 IsOpen = false;
-                playerMovement.SetInventoryState(false);
                 Debug.Log("esc pressed to off");
             }
         }

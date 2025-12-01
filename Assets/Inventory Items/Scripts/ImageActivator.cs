@@ -25,4 +25,10 @@ public class ImageActivator : MonoBehaviour
 
         }
     }
+
+    public void clear()
+    {
+        currentImage.SetActive(false);
+        currentImage = null;
+    }
 }
