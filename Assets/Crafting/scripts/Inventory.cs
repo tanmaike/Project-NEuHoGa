@@ -56,6 +56,20 @@ public class Inventory : MonoBehaviour
         return false; // Inventory is full
     }
 
+    // remove a specific item
+    public bool RemoveItem(Item item)
+    {
+        for (int i = 0; i < capacity; i++)
+        {
+            if (slots[i].item == item && slots[i].quantity > 0)
+            {
+                RemoveFromSlot(i, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Remove a specific quantity from a specific slot
     public void RemoveFromSlot(int slotIndex, int quantityToRemove)
     {
@@ -193,11 +207,11 @@ public class Inventory : MonoBehaviour
     }
 
     private void TryUnequipIfEquipped(Item item)
-{
-    PlayerEquipment equip = FindObjectOfType<PlayerEquipment>();
-    if (equip != null && equip.equippedItem == item)
     {
-        equip.Unequip();
+        PlayerEquipment equip = FindObjectOfType<PlayerEquipment>();
+        if (equip != null && equip.equippedItem == item)
+        {
+            equip.Unequip();
+        }
     }
-}
 }
