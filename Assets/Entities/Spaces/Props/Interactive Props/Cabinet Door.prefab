@@ -122,6 +122,7 @@ MonoBehaviour:
   SlideAmount: 1.9
   needsKey: 0
   requiredKey: {fileID: 0}
+  spawnedItem: {fileID: 0}
   navObstacle: {fileID: 0}
 --- !u!4 &2219725689039887845 stripped
 Transform:

@@ -56,7 +56,6 @@ public class Door : MonoBehaviour, IInteractable
         if (navObstacle != null) navObstacle.enabled = false;
     }
 
-
     public void Interact(Vector3 interactorPosition, Item item)
     {
         if (needsKey && item != requiredKey)
@@ -64,7 +63,7 @@ public class Door : MonoBehaviour, IInteractable
             Debug.Log("Door is locked. Requires key: " + requiredKey.itemName);
             return;
         }
-        else needsKey = false; // permamnently unlocks the door
+        else needsKey = false; // permanently unlocks the door
         if (!IsOpen)
         {
             if (isPaired) pairedDoor.Open(interactorPosition); 
