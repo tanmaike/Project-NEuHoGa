@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8961de8ee258c7a4f92240cd26b3fa39
+guid: 68c98079f8d1b9d499358e4bae8a4e58
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: gps_sink_facuet
-    second: {fileID: 2100000, guid: 114a799801f199546a11fd14d5fce22d, type: 2}
+    second: {fileID: 2100000, guid: 480cae2da747549ee8cd23d62294448c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
