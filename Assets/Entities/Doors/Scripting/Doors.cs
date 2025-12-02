@@ -5,20 +5,24 @@ using UnityEngine.AI;
 public class Door : MonoBehaviour, IInteractable
 {
     public bool IsOpen = false;
+    [Header("Pairing Configs")]
     public bool isPaired = false;
     public Door pairedDoor;
     [Header("Portal Configs")]
     public bool isPortalDoor = false;
     public Portal portal;
+
     [SerializeField]
     private float Speed = 1f;
     [SerializeField]
     private bool IsRotatingDoor = true;
+
     [Header("Rotation Configs")]
     [SerializeField]
     private float RotationAmount = 90f;
     [SerializeField]
     private float ForwardDirection = 0;
+
     [Header("Sliding Configs")]
     [SerializeField]
     private Vector3 SlideDirection = Vector3.back;
@@ -33,6 +37,10 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField]
     public bool needsKey = false;
     public Item requiredKey;
+
+    [Header("Item Configuration")]
+    public InteractableItem spawnedItem;
+    private bool hasItemSpawned = false;
 
     [Header("Navmesh Configs")]
     public NavMeshObstacle navObstacle;
@@ -61,6 +69,10 @@ public class Door : MonoBehaviour, IInteractable
         {
             if (isPaired) pairedDoor.Open(interactorPosition); 
             Open(interactorPosition);
+            if (!hasItemSpawned) {
+                if (spawnedItem != null) spawnedItem.gameObject.SetActive(true); // this allows items to be *locked* behind doors without being picked up
+                hasItemSpawned = true;
+            } 
         }
         else
         {

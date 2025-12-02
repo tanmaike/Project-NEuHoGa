@@ -66,6 +66,7 @@ public class InventoryManager : MonoBehaviour
             {
                 CurrentMenu.SetActive(true);
                 IsOpen = true;
+                playerMovement.SetInventoryState(true);
                 Debug.Log("esc pressed to on");
             }
             else
@@ -77,6 +78,7 @@ public class InventoryManager : MonoBehaviour
                 RightMenu.SetActive(false);
                 CurrentMenu.SetActive(false);
                 IsOpen = false;
+                playerMovement.SetInventoryState(false);
                 Debug.Log("esc pressed to off");
             }
         }
