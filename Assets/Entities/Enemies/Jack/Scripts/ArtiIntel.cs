@@ -9,6 +9,7 @@ public class HostileAI : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
+    private Animator animator;
 
     [Header("Layers")]
     [SerializeField] private LayerMask terrainLayer;
@@ -23,7 +24,7 @@ public class HostileAI : MonoBehaviour
     private float waitTimer;
 
     [Header("Combat Settings")]
-    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private float attackCooldown = 1.5f;
     private bool isOnAttackCooldown;
     [SerializeField] private float forwardShotForce = 10f;
     [SerializeField] private float verticalShotForce = 5f;
@@ -41,6 +42,7 @@ public class HostileAI : MonoBehaviour
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
         if (playerTransform == null)
         {
@@ -142,7 +144,7 @@ public class HostileAI : MonoBehaviour
                 isWaitingAtPoint = false;
                 waitTimer = 0f;
                 hasPatrolPoint = false;
-                navAgent.isStopped = false; // ADD THIS LINE
+                navAgent.isStopped = false;
                 FindPatrolPoint();
             }
             return;
@@ -187,14 +189,16 @@ public class HostileAI : MonoBehaviour
     {
         navAgent.SetDestination(transform.position);
 
-
         if (playerTransform != null)
         {
-            transform.LookAt(playerTransform);
+            Vector3 targetPosition = playerTransform.position;
+            targetPosition.y = transform.position.y; 
+            transform.LookAt(targetPosition);
         }
 
         if (!isOnAttackCooldown)
         {
+            animator.SetBool("isAttacking", true);
             FireProjectile();
             StartCoroutine(AttackCooldownRoutine());
         }
@@ -204,14 +208,20 @@ public class HostileAI : MonoBehaviour
     {
         if (!isPlayerVisible && !isPlayerInRange)
         {
+            animator.SetBool("isPatroling", true);
+            animator.SetBool("isChasing", false);
             PerformPatrol();
         }
         else if (isPlayerVisible && !isPlayerInRange)
         {
+            animator.SetBool("isPatroling", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isChasing", true);
             PerformChase();
         }
         else if (isPlayerVisible && isPlayerInRange)
         {
+            animator.SetBool("isChasing", false);
             PerformAttack();
         }
     }
