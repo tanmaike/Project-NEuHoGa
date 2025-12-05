@@ -26,8 +26,8 @@ public class HostileAI : MonoBehaviour
     [Header("Combat Settings")]
     [SerializeField] private float attackCooldown = 1.5f;
     private bool isOnAttackCooldown;
-    [SerializeField] private float forwardShotForce = 10f;
-    [SerializeField] private float verticalShotForce = 5f;
+    public Transform FirePoint;
+    public GameObject Fire;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
@@ -43,6 +43,8 @@ public class HostileAI : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+
+        animator.SetBool("isPatroling", true);
 
         if (playerTransform == null)
         {
@@ -93,12 +95,18 @@ public class HostileAI : MonoBehaviour
     private void FireProjectile()
     {
         if (projectilePrefab == null || firePoint == null) return;
+        
+        RaycastHit hit; 
 
-        Rigidbody projectileRb = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-        projectileRb.AddForce(transform.forward * forwardShotForce, ForceMode.Impulse);
-        projectileRb.AddForce(transform.up * verticalShotForce, ForceMode.Impulse);
+        if(Physics.Raycast(firePoint.position, transform.TransformDirection(Vector3.forward), out hit, 100))
+        {
+            Debug.DrawRay(firePoint.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
-        Destroy(projectileRb.gameObject, 3f);
+            GameObject bullet = Instantiate(Fire, firePoint.position, Quaternion.identity);
+
+            Destroy(bullet, 0.1f);
+        }
+
     }
 
     private void FindPatrolPoint()
@@ -129,9 +137,12 @@ public class HostileAI : MonoBehaviour
 
     private IEnumerator AttackCooldownRoutine()
     {
-        isOnAttackCooldown = true;
         yield return new WaitForSeconds(attackCooldown);
-        isOnAttackCooldown = false;
+    }
+
+    private IEnumerator ResetAttackAnimation()
+    {
+        yield return new WaitForSeconds(0.4f);
     }
 
     private void PerformPatrol()
@@ -166,12 +177,14 @@ public class HostileAI : MonoBehaviour
                 {
                     StartWaitingAtPoint();
                 }
+                animator.SetBool("isPatroling", true);
             }
         }
     }
 
     private void StartWaitingAtPoint()
     {
+        animator.SetBool("isPatroling", false);
         isWaitingAtPoint = true;
         waitTimer = 0f;
         navAgent.isStopped = true; 
@@ -183,6 +196,21 @@ public class HostileAI : MonoBehaviour
         {
             navAgent.SetDestination(playerTransform.position);
         }
+    }
+
+    private IEnumerator AttackSequence()
+    {
+        if (isOnAttackCooldown)
+            yield break;
+
+        animator.SetTrigger("attackTrigger");
+        isOnAttackCooldown = true;
+
+        yield return new WaitForSeconds(0.1f);
+        FireProjectile();
+
+        yield return new WaitForSeconds(attackCooldown);
+        isOnAttackCooldown = false;
     }
 
     private void PerformAttack()
@@ -198,9 +226,9 @@ public class HostileAI : MonoBehaviour
 
         if (!isOnAttackCooldown)
         {
-            animator.SetBool("isAttacking", true);
             FireProjectile();
             StartCoroutine(AttackCooldownRoutine());
+            StartCoroutine(ResetAttackAnimation());
         }
     }
 
@@ -208,21 +236,18 @@ public class HostileAI : MonoBehaviour
     {
         if (!isPlayerVisible && !isPlayerInRange)
         {
-            animator.SetBool("isPatroling", true);
             animator.SetBool("isChasing", false);
             PerformPatrol();
         }
         else if (isPlayerVisible && !isPlayerInRange)
         {
-            animator.SetBool("isPatroling", false);
-            animator.SetBool("isAttacking", false);
             animator.SetBool("isChasing", true);
             PerformChase();
         }
         else if (isPlayerVisible && isPlayerInRange)
         {
-            animator.SetBool("isChasing", false);
-            PerformAttack();
+            if (!isOnAttackCooldown)
+                StartCoroutine(AttackSequence());
         }
     }
 }

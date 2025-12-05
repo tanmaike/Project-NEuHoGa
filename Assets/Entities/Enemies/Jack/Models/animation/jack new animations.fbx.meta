@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: fa7439b7ba4838f4fb880b0cd372dfdc
+guid: e0af892eb447bd64fbad394721113fe3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FraneMetal
-    second: {fileID: 2100000, guid: 969dae1dc0d0a214a8eab8223fcb37db, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FraneWood
-    second: {fileID: 2100000, guid: 4edbdf89d3acf4208b82cd238690eafb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: hair
-    second: {fileID: 2100000, guid: 114a799801f199546a11fd14d5fce22d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: jack
-    second: {fileID: 2100000, guid: e5710e058a6e36b46a75c810ffac718d, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -122,7 +102,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
