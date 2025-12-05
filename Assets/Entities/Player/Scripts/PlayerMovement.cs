@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : PortalTraveller {
+
+    [Header("Stamina Integration")]
+    public StaminaSystem staminaSystem; // Reference to the Stamina Bar UI
+    public float sprintCostPerSecond = 10f;
+
     [Header("Movement")]
     public float walkSpeed;
     public float sprintSpeed;
@@ -49,6 +54,9 @@ public class PlayerMovement : PortalTraveller {
     private bool isPaused = false;
     private Vector3 currentVelocity;
 
+    // -- STAMINA VAR --
+    private bool isSprinting; // Track sprinting status for movement and stamina logic
+
     void Start () {
         cam = Camera.main;
 
@@ -64,18 +72,56 @@ public class PlayerMovement : PortalTraveller {
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        // Initialize Stamina from Code 1
+        if (staminaSystem != null)
+        {
+            staminaSystem.SetMaxStamina(100f); 
+        }
     }
 
     void Update() {
         
         if (isPaused) return;
 
+        // --- INPUT CALCULATION ---
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
         Vector3 inputDir = new Vector3(input.x, 0, input.y).normalized;
         Vector3 worldInputDir = transform.TransformDirection(inputDir);
 
-        float currentSpeed = isCrouching ? crouchSpeed : (Input.GetKey(KeyCode.LeftShift)) ? sprintSpeed : walkSpeed;
+        // Check if the player is actively pressing a movement key (magnitude > 0)
+        // Required for Stamina logic so we don't drain stamina while standing still
+        bool isAttemptingMovement = inputDir.magnitude > 0.1f;
+
+        // --- STAMINA SPRINTING LOGIC (Integrated) ---
+        // We set isSprinting to true only if the key is held initially
+        isSprinting = Input.GetKey(sprintKey);
+        
+        if (staminaSystem != null)
+        {
+            // CONDITION TO DRAIN STAMINA: 
+            if (isSprinting && !isCrouching && isAttemptingMovement && staminaSystem.HasStamina(0.1f)) 
+            {
+                staminaSystem.DrainStaminaOverTime(sprintCostPerSecond);
+            }
+            // CONDITION TO STOP DRAINING/START REGEN: 
+            else 
+            {
+                staminaSystem.StopStaminaDrain(); 
+                
+                // Set isSprinting to false if the stamina is depleted
+                // This prevents the player from moving at sprint speed if they have no stamina
+                if (!staminaSystem.HasStamina(0.1f)) 
+                {
+                    isSprinting = false; 
+                }
+            }
+        }
+
+        // --- MOVEMENT SPEED APPLICATION ---
+        // Modified to use the 'isSprinting' bool controlled by the stamina logic
+        float currentSpeed = isCrouching ? crouchSpeed : (isSprinting && !isCrouching) ? sprintSpeed : walkSpeed;
+        
         Vector3 targetVelocity = worldInputDir * currentSpeed;
         velocity = Vector3.SmoothDamp(velocity, targetVelocity, ref smoothV, smoothMoveTime);
 
@@ -90,7 +136,7 @@ public class PlayerMovement : PortalTraveller {
             verticalVelocity = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(jumpKey)) // Changed to use jumpKey variable
         {
             float timeSinceLastTouchedGround = Time.time - lastGroundedTime;
             if (!jumping && !isCrouching && timeSinceLastTouchedGround < 0.15f)
