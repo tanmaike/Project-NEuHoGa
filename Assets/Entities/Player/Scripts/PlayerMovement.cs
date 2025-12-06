@@ -32,6 +32,8 @@ public class PlayerMovement : PortalTraveller {
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl; 
 
+    public Animator animator;
+
     private CharacterController controller;
     Camera cam;
     public float yaw;
@@ -181,6 +183,10 @@ public class PlayerMovement : PortalTraveller {
 
         transform.eulerAngles = Vector3.up * smoothYaw;
         cam.transform.localEulerAngles = Vector3.right * smoothPitch;
+
+        bool isMoving = inputDir.magnitude > 0.1f;
+        animator.SetBool("isWalking", isMoving && !isSprinting);
+        animator.SetBool("isSprinting", isMoving && isSprinting);
 
     }
 
