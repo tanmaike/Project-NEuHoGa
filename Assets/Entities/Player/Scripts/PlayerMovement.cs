@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : PortalTraveller {
 
+    [Header("Health")]
+    public HealthSystem healthSystem; // Reference to the Health Bar UI
+    public int maxHealth = 100;
+
     [Header("Stamina Integration")]
     public StaminaSystem staminaSystem; // Reference to the Stamina Bar UI
     public float sprintCostPerSecond = 10f;
@@ -75,7 +79,17 @@ public class PlayerMovement : PortalTraveller {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Initialize Stamina from Code 1
+        // Initialize Health
+        if (healthSystem != null)
+        {
+            healthSystem.SetMaxHealth(maxHealth);
+        }
+        else
+        {
+            Debug.LogError("HealthSystem is not assigned in the Inspector!", this.gameObject);
+        }
+
+        // Initialize Stamina
         if (staminaSystem != null)
         {
             staminaSystem.SetMaxStamina(100f); 
@@ -84,7 +98,22 @@ public class PlayerMovement : PortalTraveller {
 
     void Update() {
         
+        if (Input.GetKeyDown(KeyCode.Escape) && !IsJumping())
+        {
+            TogglePause();
+        }
+
         if (isPaused) return;
+
+        // --- HEALTH TEST KEYS ---
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            if (healthSystem != null) healthSystem.TakeDamage(10);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (healthSystem != null) healthSystem.Heal(5);
+        }
 
         // --- INPUT CALCULATION ---
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -138,7 +167,7 @@ public class PlayerMovement : PortalTraveller {
             verticalVelocity = 0;
         }
 
-        if (Input.GetKeyDown(jumpKey)) // Changed to use jumpKey variable
+        if (Input.GetKeyDown(jumpKey)) 
         {
             float timeSinceLastTouchedGround = Time.time - lastGroundedTime;
             if (!jumping && !isCrouching && timeSinceLastTouchedGround < 0.15f)
