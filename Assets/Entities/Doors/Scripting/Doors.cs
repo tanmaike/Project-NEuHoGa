@@ -48,12 +48,15 @@ public class Door : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        if (isPortalDoor) portal.gameObject.SetActive(false);
         StartRotation = transform.localEulerAngles;
         Forward = transform.right;
         StartPosition = transform.position;
         
         if (navObstacle != null) navObstacle.enabled = false;
+    }
+
+    private void Start() {
+        //if (isPortalDoor) portal.gameObject.SetActive(false);
     }
 
     public void Interact(Vector3 interactorPosition, Item item)
@@ -95,7 +98,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!IsOpen)
         {
-            if (isPortalDoor) portal.gameObject.SetActive(true);
+            //if (isPortalDoor) portal.gameObject.SetActive(true);
             if (navObstacle != null) navObstacle.enabled = true;
             if (AnimationCoroutine != null)
             {
@@ -194,7 +197,7 @@ public class Door : MonoBehaviour, IInteractable
         }
         
         transform.rotation = endRotation;
-        if (isPortalDoor) portal.gameObject.SetActive(false);
+        //if (isPortalDoor) portal.gameObject.SetActive(false);
     }
 
     private IEnumerator DoSlidingClose()
@@ -211,6 +214,6 @@ public class Door : MonoBehaviour, IInteractable
             yield return null;
             time += Time.deltaTime * Speed;
         }
-        if (isPortalDoor) portal.gameObject.SetActive(false);
+        //if (isPortalDoor) portal.gameObject.SetActive(false);
     }
 }
