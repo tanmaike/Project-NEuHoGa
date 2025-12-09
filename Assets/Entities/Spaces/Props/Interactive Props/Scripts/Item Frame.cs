@@ -45,6 +45,7 @@ public class ItemFrame : MonoBehaviour, IInteractable
             }
 
             inv.RemoveItem(equippedItem);
+            HUDNotification.Instance.displayMessage("Placed " + equippedItem.itemName + ".");
 
             if (eq.equippedItem == equippedItem) eq.Unequip();
 

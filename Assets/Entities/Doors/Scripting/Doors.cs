@@ -63,10 +63,14 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (needsKey && item != requiredKey)
         {
-            Debug.Log("Door is locked. Requires key: " + requiredKey.itemName);
+            HUDNotification.Instance.displayMessage(requiredKey.itemName + " required.");
             return;
         }
-        else needsKey = false; // permanently unlocks the door
+        else if (needsKey && item == requiredKey) {
+            HUDNotification.Instance.displayMessage("Unlocked using " + requiredKey.itemName + ".");
+            needsKey = false; // permanently unlocks the door
+        }
+
         if (!IsOpen)
         {
             if (isPaired) pairedDoor.Open(interactorPosition); 

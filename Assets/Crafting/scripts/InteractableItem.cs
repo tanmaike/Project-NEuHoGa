@@ -90,12 +90,12 @@ public class InteractableItem : MonoBehaviour, IInteractable
         bool wasAdded = playerInventory.AddItem(item, quantity);
         
         if (wasAdded) PickUp();
-        else Debug.Log("Inventory is full!");
+        else HUDNotification.Instance.displayMessage("Inventory full.");
     }
     
     private void PickUp()
     {
-        Debug.Log($"Picked up {quantity} {item.itemName}");
+        HUDNotification.Instance.displayMessage("Picked up " + item.itemName + ".");
         
         gameObject.SetActive(false);
         canBePickedUp = false;
@@ -105,6 +105,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     
     public void DropItem(Vector3 position)
     {
+        HUDNotification.Instance.displayMessage("Dropped " + item.itemName + ".");
         transform.position = position;
         startPosition = position;
         gameObject.SetActive(true);
