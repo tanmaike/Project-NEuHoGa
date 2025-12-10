@@ -10,6 +10,8 @@ public class ItemFrame : MonoBehaviour, IInteractable
 
     private SpriteRenderer spriteRenderer;
 
+    public event System.Action<ItemFrame> OnItemChanged;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -64,6 +66,8 @@ public class ItemFrame : MonoBehaviour, IInteractable
             storedItem = null;
             UpdateSprite();
         }
+
+        OnItemChanged?.Invoke(this);
     }
 
     public void UpdateSprite()

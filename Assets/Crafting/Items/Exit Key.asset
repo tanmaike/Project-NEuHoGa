@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c63e3102fea56a48852388654af91a6, type: 3}
-  m_Name: Bandage
+  m_Name: Exit Key
   m_EditorClassIdentifier: 
-  itemName: Bandage
-  icon: {fileID: 21300000, guid: 214012b36296e9447a15191b3886f1cb, type: 3}
-  maxStack: 64
+  itemName: Exit Key
+  icon: {fileID: 21300000, guid: 8312f6f670172fe46a539206d4f8a50e, type: 3}
+  maxStack: 1
