@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7444735853203842118}
   - component: {fileID: 4010304280271995989}
   m_Layer: 0
-  m_Name: Plate1
+  m_Name: WorldItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efef14cb33a98441ca510b5dee1eefd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 3ba10c8c4cfbe644091627f754f9d8db, type: 2}
+  item: {fileID: 0}
   quantity: 1
   spriteRenderer: {fileID: 0}
   billboard: 1

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd18f5db5afbed468150c62c6b37c03, type: 3}
+  m_Name: note_002
+  m_EditorClassIdentifier: 
+  noteID: 002
+  noteTitle: Pension Letter
+  noteImage: {fileID: 0}
+  noteText: 'Dear Mr. Terrel,
+
+
+    We regret to inform you that your military pension
+    will be severed next month. We hope that you can manage moving forward.
+
+
+    -
+    Veteran''s Service'
