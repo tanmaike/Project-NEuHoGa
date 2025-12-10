@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4482964451756506645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8653516194857840499}
+  m_Layer: 0
+  m_Name: Small Cabinet Door
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8653516194857840499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482964451756506645}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.435, y: -0.249, z: -0.346}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4907876678442287913}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4870360059542463682
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8653516194857840499}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      propertyPath: m_Name
+      value: small_dual_cabinet_rotating_door
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3804325532211176350}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2878585335607647146}
+  m_SourcePrefab: {fileID: 100100000, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+--- !u!4 &4907876678442287913 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+  m_PrefabInstance: {fileID: 4870360059542463682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5717204804783724947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+  m_PrefabInstance: {fileID: 4870360059542463682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &3804325532211176350
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5717204804783724947}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 649084338211154108, guid: 2a1a78f902f634140bdadf985e34bd25, type: 3}
+--- !u!114 &2878585335607647146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5717204804783724947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faee1518a13bc7b49a1aeff40f1e50ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsOpen: 0
+  isPaired: 0
+  pairedDoor: {fileID: 0}
+  isPortalDoor: 0
+  portal: {fileID: 0}
+  Speed: 2
+  IsRotatingDoor: 1
+  RotationAmount: 90
+  ForwardDirection: 1
+  SlideDirection: {x: 0, y: 0, z: -1}
+  SlideAmount: 1.9
+  needsKey: 0
+  requiredKey: {fileID: 0}
+  spawnedItem: {fileID: 0}
+  navObstacle: {fileID: 0}

@@ -61,12 +61,15 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact(Vector3 interactorPosition, Item item)
     {
+        Inventory inv = FindObjectOfType<Inventory>();
+
         if (needsKey && item != requiredKey)
         {
             HUDNotification.Instance.displayMessage(requiredKey.itemName + " required.");
             return;
         }
         else if (needsKey && item == requiredKey) {
+            inv.RemoveItem(item);
             HUDNotification.Instance.displayMessage("Unlocked using " + requiredKey.itemName + ".");
             needsKey = false; // permanently unlocks the door
         }
