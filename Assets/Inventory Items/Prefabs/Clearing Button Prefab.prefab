@@ -146,8 +146,6 @@ GameObject:
   - component: {fileID: 4855185057108324925}
   - component: {fileID: 5793911152879597669}
   - component: {fileID: 3750815953194956698}
-  - component: {fileID: 877916666563027390}
-  - component: {fileID: 7579821344816887272}
   m_Layer: 5
   m_Name: Clearing Button Prefab
   m_TagString: Untagged
@@ -257,7 +255,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7579821344816887272}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ClearNotes, Assembly-CSharp
         m_MethodName: Deactivate
         m_Mode: 1
@@ -269,29 +267,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &877916666563027390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6333869079964822487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bffc4ca4afa96d489b4e074fd338c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageToActivate: {fileID: 0}
---- !u!114 &7579821344816887272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6333869079964822487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c35d0f214893f547a138238c6de22e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NoteScreen: {fileID: 0}

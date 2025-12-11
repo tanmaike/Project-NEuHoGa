@@ -13,10 +13,10 @@ public class InteractableNote : MonoBehaviour, IInteractable
         if (pickedUp) return;
 
         pickedUp = true;
+        string noteTitle = NoteManager.Instance.GetNoteTitle(noteID);
 
         NoteManager.Instance.UnlockNote(noteID);
-        HUDNotification.Instance.displayMessage("Picked up note.");
-
+        HUDNotification.Instance.displayMessage($"Picked up note \"{noteTitle}\".");
         gameObject.SetActive(false);
     }
 }

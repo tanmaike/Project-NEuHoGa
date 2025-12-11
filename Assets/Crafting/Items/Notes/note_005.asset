@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd18f5db5afbed468150c62c6b37c03, type: 3}
+  m_Name: note_005
+  m_EditorClassIdentifier: 
+  noteID: 005
+  noteTitle: The Door Next to My Bed
+  noteImage: {fileID: 0}
+  noteText: 'the door next to my bed had to be locked for the time being. ended up
+    buying more ammo for my revolver
+
+
+    the key is somewhere in the bathroom,
+    last time i checked
+
+
+    if i hear any more knocking on that door...'

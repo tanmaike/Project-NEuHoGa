@@ -1,98 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
+[System.Serializable]
+public class NoteUIEntry
+{
+    public NoteClass NoteData; 
+    public GameObject ButtonObject; 
+    public TextMeshProUGUI ButtonTitleText; 
+}
 
 public class NoteManager : MonoBehaviour
 {
     public static NoteManager Instance;
 
-    [Header("Notes")]
-    public GameObject plateNoteButton;
-    public GameObject couchNoteButton;
-    public GameObject firstKitchenNoteButton;
-    public GameObject bathroomNoteButton;
-    public GameObject bedroomNoteButton;
+    [Header("Note UI List")]
+    public List<NoteUIEntry> AllNoteEntries = new List<NoteUIEntry>();
 
-    [Header("Note Texts")]
-    public GameObject plateNoteText;
-    public GameObject couchNoteText;
-    public GameObject firstKitchenNoteText;
-    public GameObject bathroomNoteText;
-    public GameObject bedroomNoteText;
+    [Header("Note Display")]
+    public UnityEngine.UI.Image DisplayBackground;
+    public TextMeshProUGUI DisplayBodyText;
+    public UnityEngine.UI.Image DisplayImage;
+    
+    private HashSet<string> unlockedNoteIDs = new HashSet<string>();
+    private Dictionary<string, NoteUIEntry> noteIDToUIEntry = new Dictionary<string, NoteUIEntry>();
 
     private void Awake()
     {
         Instance = this;
 
-        plateNoteButton.SetActive(false);
-        couchNoteButton.SetActive(false);
-        firstKitchenNoteButton.SetActive(false);
-        bathroomNoteButton.SetActive(false);
-        bedroomNoteButton.SetActive(false);
+        foreach (NoteUIEntry entry in AllNoteEntries)
+        {
+            entry.ButtonTitleText.text = entry.NoteData.noteTitle;
 
-        plateNoteText.SetActive(false);
-        couchNoteText.SetActive(false);
-        firstKitchenNoteText.SetActive(false);
-        bathroomNoteText.SetActive(false);
-        bedroomNoteText.SetActive(false);
+            entry.ButtonObject.SetActive(false);
+            
+            noteIDToUIEntry.Add(entry.NoteData.noteID, entry);
+        }
+
+        ClearNoteDisplay();
+    }
+
+    public string GetNoteTitle(string noteID)
+    {
+        if (noteIDToUIEntry.TryGetValue(noteID, out NoteUIEntry entry)) return entry.NoteData.noteTitle;       
+
+        return "null"; // error
+    }
+
+    public void ClearNoteDisplay()
+    {
+        DisplayBodyText.text = "";
+        DisplayBackground.gameObject.SetActive(false);
+        DisplayImage.gameObject.SetActive(false);
     }
 
     public void UnlockNote(string noteID)
     {
-        switch (noteID)
+        if (noteIDToUIEntry.TryGetValue(noteID, out NoteUIEntry entry) && !unlockedNoteIDs.Contains(noteID))
         {
-            case "001":
-                plateNoteButton.SetActive(true);
-                break;
-            case "002":
-                couchNoteButton.SetActive(true);
-                break;
-            case "003":
-                firstKitchenNoteButton.SetActive(true);
-                break;
-            case "004":
-                bathroomNoteButton.SetActive(true);
-                break;
-            case "005":
-                bedroomNoteButton.SetActive(true);
-                break;
+            entry.ButtonObject.SetActive(true);
+            unlockedNoteIDs.Add(noteID);
         }
     }
 
     public void ShowNote(string noteID)
     {
-        plateNoteText.SetActive(false);
-        couchNoteText.SetActive(false);
-        firstKitchenNoteText.SetActive(false);
-        bathroomNoteText.SetActive(false);
-        bedroomNoteText.SetActive(false);
-
-        switch (noteID)
+        if (noteIDToUIEntry.TryGetValue(noteID, out NoteUIEntry entry))
         {
-            case "001":
-                plateNoteText.SetActive(true);
-                break;
-            case "002":
-                couchNoteText.SetActive(true);
-                break;
-            case "003":
-                firstKitchenNoteText.SetActive(true);
-                break;
-            case "004":
-                bathroomNoteText.SetActive(true);
-                break;
-            case "005":
-                bedroomNoteText.SetActive(true);
-                break;
-        }
-    }
+            DisplayBodyText.text = entry.NoteData.noteText;
 
-    public void ClearAllNotes()
-    {
-        plateNoteText.SetActive(false);
-        couchNoteText.SetActive(false);
-        firstKitchenNoteText.SetActive(false);
-        bathroomNoteText.SetActive(false);
-        bedroomNoteText.SetActive(false);
+            DisplayImage.sprite = entry.NoteData.noteImage;
+            DisplayBackground.gameObject.SetActive(true);
+            DisplayImage.gameObject.SetActive(true);
+        }
     }
 }

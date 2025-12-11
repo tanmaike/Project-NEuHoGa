@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd18f5db5afbed468150c62c6b37c03, type: 3}
+  m_Name: note_003
+  m_EditorClassIdentifier: 
+  noteID: 003
+  noteTitle: The Denopolis Tribune
+  noteImage: {fileID: 0}
+  noteText: 'January 12th, 1989
+
+
+    It has been approximately one year since Maggie
+    Holmes was last seen in her home in New York. A 22-year old woman, she was an
+    aspiring engineer with an interest in computers. As of now, the NYPD have been
+    stumped.
+
+
+    If anyone has any knowledge on the whereabouts of Ms. Holmes,
+    contact (555) 724-0919.'
