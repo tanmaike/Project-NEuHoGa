@@ -47,4 +47,18 @@ public class HealthSystem : MonoBehaviour
         slider.value = currentHealth;
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
+    public void Update()
+    {
+        if (currentHealth <= 0)
+        {
+            die();
+        }
+    }
+    public void die()
+    {
+        //activate fail state
+        Debug.Log("player died");
+        //currently reseting in order to check to see if it works
+        Heal(3);
+    }
 }

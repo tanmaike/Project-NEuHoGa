@@ -7,15 +7,13 @@ public class InventoryManager : MonoBehaviour
     private PlayerMovement playerMovement;
     public GameObject Notes;
     public GameObject Inventory;
-    public GameObject Crafting;
     public KeyCode switchRightKey = KeyCode.Q;
     public KeyCode switchLeftKey = KeyCode.E;
     public KeyCode InventoryKey = KeyCode.Escape;
     bool IsOpen = false;
 
     private GameObject CurrentMenu;
-    private GameObject LeftMenu;
-    private GameObject RightMenu;
+    private GameObject NextMenu;
     private GameObject Holding;
 
 
@@ -23,12 +21,9 @@ public class InventoryManager : MonoBehaviour
     void Awake()
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
-
         CurrentMenu = Inventory;
-        LeftMenu = Crafting;
-        RightMenu = Notes;
-        LeftMenu.SetActive(false);
-        RightMenu.SetActive(false);
+        NextMenu = Notes;
+        NextMenu.SetActive(false);
         CurrentMenu.SetActive(false);
         Debug.Log("working");
     }
@@ -37,26 +32,13 @@ public class InventoryManager : MonoBehaviour
     void Update()
     {
         if(IsOpen == true) {
-            if (Input.GetKeyDown(switchRightKey))
+            if (Input.GetKeyDown(switchRightKey) || Input.GetKeyDown(switchLeftKey))
             {
                 CurrentMenu.SetActive(false);
-                RightMenu.SetActive(true);
+                NextMenu.SetActive(true);
                 Holding = CurrentMenu;
-                CurrentMenu = RightMenu;
-                RightMenu = LeftMenu;
-                LeftMenu = Holding;
-                Debug.Log("Q pressed");
-            }
-
-            if (Input.GetKeyDown(switchLeftKey))
-            {
-                CurrentMenu.SetActive(false);
-                LeftMenu.SetActive(true);
-                Holding = CurrentMenu;
-                CurrentMenu = LeftMenu;
-                LeftMenu = RightMenu;
-                RightMenu = Holding;
-                Debug.Log("E pressed");
+                CurrentMenu = NextMenu;
+                NextMenu = Holding;
             }
         }
 
@@ -72,10 +54,8 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 CurrentMenu = Inventory;
-                LeftMenu = Crafting;
-                RightMenu = Notes;
-                LeftMenu.SetActive(false);
-                RightMenu.SetActive(false);
+                NextMenu = Notes;
+                NextMenu.SetActive(false);
                 CurrentMenu.SetActive(false);
                 IsOpen = false;
                 playerMovement.SetInventoryState(false);

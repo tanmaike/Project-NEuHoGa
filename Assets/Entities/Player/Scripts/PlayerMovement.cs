@@ -108,11 +108,11 @@ public class PlayerMovement : PortalTraveller {
         // --- HEALTH TEST KEYS ---
         if (Input.GetKeyDown(KeyCode.J))
         {
-            if (healthSystem != null) healthSystem.TakeDamage(10);
+            if (healthSystem != null) healthSystem.TakeDamage(1);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            if (healthSystem != null) healthSystem.Heal(5);
+            if (healthSystem != null) healthSystem.Heal(2);
         }
 
         // --- INPUT CALCULATION ---
