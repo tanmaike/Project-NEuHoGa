@@ -15,7 +15,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     
     [Header("Pickup Settings")]
     public float pickupDelay = 0.2f;
-    public float hoverAmplitude = 0.1f; // Gentle floating effect
+    public float hoverAmplitude = 0.1f; 
     public float hoverSpeed = 1f;
     
     private bool canBePickedUp = true;
@@ -62,7 +62,6 @@ public class InteractableItem : MonoBehaviour, IInteractable
             transform.rotation = Quaternion.LookRotation(lookDirection);
         }
         
-        // Gentle hovering animation
         if (hoverAmplitude > 0)
         {
             float newY = startPosition.y + Mathf.Sin(Time.time * hoverSpeed) * hoverAmplitude;
@@ -99,8 +98,6 @@ public class InteractableItem : MonoBehaviour, IInteractable
         
         gameObject.SetActive(false);
         canBePickedUp = false;
-        
-        // add sound effects and player notifications here
     }
     
     public void DropItem(Vector3 position)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractableNote : MonoBehaviour, IInteractable
 {
-    public string noteID; // "PlateNote" or "CouchNote"
+    public string noteID;
     public float pickupDelay = 0.1f;
     private bool pickedUp = false;
 

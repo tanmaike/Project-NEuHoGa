@@ -51,7 +51,7 @@ public class CraftingSystem : MonoBehaviour
         outputQuantityText.text = currentRecipe.output.quantity > 1 ? currentRecipe.output.quantity.ToString() : "";
 
         // Check if we can craft it
-        CheckCraftability();
+        //CheckCraftability();
     }
 
     // Call this whenever the inventory changes
@@ -77,7 +77,7 @@ public class CraftingSystem : MonoBehaviour
             inventory.AddItem(currentRecipe.output.item, currentRecipe.output.quantity);
             
             // 4. Re-check if we can craft another one
-            CheckCraftability();
+            //CheckCraftability();
         }
     }
 
@@ -101,6 +101,6 @@ public class CraftingSystem : MonoBehaviour
     // This is called by the event
     private void OnInventoryChanged(int slotIndex)
     {
-        CheckCraftability();
+        //CheckCraftability();
     }
 }

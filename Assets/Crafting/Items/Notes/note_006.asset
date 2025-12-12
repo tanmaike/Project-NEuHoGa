@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd18f5db5afbed468150c62c6b37c03, type: 3}
+  m_Name: note_006
+  m_EditorClassIdentifier: 
+  noteID: 006
+  noteTitle: The Doors, the Hallways
+  noteImage: {fileID: 0}
+  noteText: 'If you think you''re getting lost, well, so am I. These doors make no
+    goddamn sense. They spaces they exist in don''t make any sense. All to just loop
+    around back to the same place you started, or somewhere you didn''t know existed.
+
+
+    Stay
+    grounded. Because I don''t think Jack knows that those doors even exist.'
