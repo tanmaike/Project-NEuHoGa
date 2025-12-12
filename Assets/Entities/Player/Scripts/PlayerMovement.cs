@@ -37,6 +37,8 @@ public class PlayerMovement : PortalTraveller {
     public KeyCode crouchKey = KeyCode.LeftControl; 
 
     public Animator animator;
+    private float lastDamageTime = 0f;
+    public float damageCooldown = 1.0f;
 
     private CharacterController controller;
     Camera cam;
@@ -108,7 +110,7 @@ public class PlayerMovement : PortalTraveller {
         // --- HEALTH TEST KEYS ---
         if (Input.GetKeyDown(KeyCode.J))
         {
-            if (healthSystem != null) healthSystem.TakeDamage(1);
+            if (healthSystem != null) healthSystem.TakeDamage(80);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -218,7 +220,22 @@ public class PlayerMovement : PortalTraveller {
         animator.SetBool("isSprinting", isMoving && isSprinting);
 
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        DamageDealer damageSource = hit.gameObject.GetComponent<DamageDealer>();
 
+        if (damageSource != null && healthSystem != null)
+        {
+            // Check if enough time has passed since the last hit
+            if (Time.time > lastDamageTime + damageCooldown)
+            {
+                healthSystem.TakeDamage(damageSource.damageAmount);
+                
+                // Reset the timer
+                lastDamageTime = Time.time;
+            }
+        }
+    }
     void smoothHeightTransition() {
         float newHeight = Mathf.MoveTowards(controller.height, targetYScale, Time.deltaTime * crouchTransition);
 

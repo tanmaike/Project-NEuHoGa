@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
     int currentHealth;
+    public int actualHealth;
     public Slider slider;
     public Gradient gradient;
     public Image fill;
@@ -16,6 +18,7 @@ public class HealthSystem : MonoBehaviour
         slider.maxValue = health;
         slider.value = health;
         currentHealth = health;
+        actualHealth = health;
 
         fill.color = gradient.Evaluate(1f);
     }
@@ -25,13 +28,25 @@ public class HealthSystem : MonoBehaviour
     {
         // Subtract the damage
         currentHealth -= damageAmount;
+        actualHealth = currentHealth;
 
         // Clamp the value so it never goes below 0
         currentHealth = Mathf.Clamp(currentHealth, 0, (int)slider.maxValue);
 
-        // Update the slider UI
-        slider.value = currentHealth;
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        if (actualHealth <= 20 && actualHealth > 10)
+        {
+            slider.value = 25;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        } else if(actualHealth <= 10 && actualHealth > 0)
+        {
+            slider.value = 22;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
+        else
+        {
+            slider.value = currentHealth;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
     }
 
     // Call this function to HEAL
@@ -39,13 +54,25 @@ public class HealthSystem : MonoBehaviour
     {
         // Add the health
         currentHealth += healAmount;
+        actualHealth += healAmount;
 
         // Clamp the value so it never goes above the max health
         currentHealth = Mathf.Clamp(currentHealth, 0, (int)slider.maxValue);
 
-        // Update the slider UI
-        slider.value = currentHealth;
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        if (actualHealth <= 20 && actualHealth > 10)
+        {
+            slider.value = 25;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        } else if(actualHealth <= 10 && actualHealth > 0)
+        {
+            slider.value = 22;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
+        else
+        {
+            slider.value = currentHealth;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
     }
     public void Update()
     {
@@ -56,9 +83,6 @@ public class HealthSystem : MonoBehaviour
     }
     public void die()
     {
-        //activate fail state
-        Debug.Log("player died");
-        //currently reseting in order to check to see if it works
-        Heal(3);
+        SceneManager.LoadScene("EndScene");
     }
 }
