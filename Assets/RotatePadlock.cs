@@ -8,6 +8,7 @@ public class RotatePadlock : MonoBehaviour, IInteractable
     public static event Action<string, int> Rotated = delegate { };
     private bool coroutineAllowed;
     public int numberShown;
+    public AudioClip dialTurn;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class RotatePadlock : MonoBehaviour, IInteractable
         coroutineAllowed = true;
 
         numberShown += 1;
+        AudioSource.PlayClipAtPoint(dialTurn, transform.position);
         HUDNotification.Instance.displayMessage(numberShown + "...");
 
         if (numberShown > 9) numberShown = 0;

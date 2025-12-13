@@ -12,6 +12,8 @@ public class ItemFrame : MonoBehaviour, IInteractable
 
     public event System.Action<ItemFrame> OnItemChanged;
 
+    public AudioClip placePlateSound;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -38,15 +40,19 @@ public class ItemFrame : MonoBehaviour, IInteractable
 
         if (storedItem == null)
         {
-            if (equippedItem == null) return;
+            if (equippedItem == null) {
+                HUDNotification.Instance.displayMessage("I should hold a plate to put it down.");
+                return;
+            }
 
             if (!allowedItems.Contains(equippedItem))
             {
-                Debug.Log($"{equippedItem.itemName} is not permitted");
+                HUDNotification.Instance.displayMessage("This shelf is just for plates.");
                 return;
             }
 
             inv.RemoveItem(equippedItem);
+            AudioSource.PlayClipAtPoint(placePlateSound, transform.position);
             HUDNotification.Instance.displayMessage("Placed " + equippedItem.itemName + ".");
 
             if (eq.equippedItem == equippedItem) eq.Unequip();
@@ -59,10 +65,12 @@ public class ItemFrame : MonoBehaviour, IInteractable
         {
             if (!inv.AddItem(storedItem, 1))
             {
-                Debug.Log("inventory full");
+                HUDNotification.Instance.displayMessage("I should hold a plate to put it down.");
                 return;
             }
 
+            HUDNotification.Instance.displayMessage("Picked up plate.");
+            AudioSource.PlayClipAtPoint(placePlateSound, transform.position);
             storedItem = null;
             UpdateSprite();
         }

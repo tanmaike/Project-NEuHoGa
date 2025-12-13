@@ -28,6 +28,7 @@ public class HostileAI : MonoBehaviour
     private bool isOnAttackCooldown;
     public Transform FirePoint;
     public GameObject Fire;
+    public AudioClip gunshot;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
@@ -101,6 +102,7 @@ public class HostileAI : MonoBehaviour
         if(Physics.Raycast(firePoint.position, transform.TransformDirection(Vector3.forward), out hit, 100))
         {
             Debug.DrawRay(firePoint.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            AudioSource.PlayClipAtPoint(gunshot, transform.position);
 
             GameObject bullet = Instantiate(Fire, firePoint.position, Quaternion.identity);
 

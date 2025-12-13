@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab8328ceedd5c74a9eae0356004bf83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnedItem: {fileID: 0}
+  dialSolved: {fileID: 8300000, guid: 6c410a7ff0082ea4d962d7d17fe6989f, type: 3}
 --- !u!1 &6644048936538609213
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbfa07d6e4d6d54f9402832992b4ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberShown: 0
+  dialTurn: {fileID: 8300000, guid: e8da2d485c4ecb8459817ccb374558c2, type: 3}
 --- !u!1001 &3919137925181313236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -294,6 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbfa07d6e4d6d54f9402832992b4ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberShown: 0
+  dialTurn: {fileID: 8300000, guid: e8da2d485c4ecb8459817ccb374558c2, type: 3}
 --- !u!1001 &4295998706480680639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -501,3 +507,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbfa07d6e4d6d54f9402832992b4ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberShown: 0
+  dialTurn: {fileID: 8300000, guid: e8da2d485c4ecb8459817ccb374558c2, type: 3}

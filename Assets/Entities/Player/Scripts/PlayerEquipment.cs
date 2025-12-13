@@ -8,6 +8,7 @@ public class PlayerEquipment : MonoBehaviour
     private GameObject equippedObject;
     public Item equippedItem;
     public Interactor interactor;
+    public AudioClip equipSound;
 
     public void Equip(Item item)
     {
@@ -22,6 +23,7 @@ public class PlayerEquipment : MonoBehaviour
         interactor.SetEquippedItem(item);
 
         equippedObject = new GameObject("EquippedItem");
+        AudioSource.PlayClipAtPoint(equipSound, transform.position);
         
         SpriteRenderer spriteRenderer = equippedObject.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = item.icon;
@@ -34,6 +36,7 @@ public class PlayerEquipment : MonoBehaviour
     public void Unequip()
     {
         if (equippedObject != null) Destroy(equippedObject);
+        AudioSource.PlayClipAtPoint(equipSound, transform.position);
 
         equippedObject = null;
         equippedItem = null;

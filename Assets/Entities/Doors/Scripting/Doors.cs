@@ -42,7 +42,7 @@ public class Door : MonoBehaviour, IInteractable
     public InteractableItem spawnedItem;
     private bool hasItemSpawned = false;
 
-    public AudioSource doorCreaking, doorLocked, doorUnlocked;
+    public AudioSource doorCreaking, doorClosing, doorLocked, doorUnlocked;
 
     [Header("Navmesh Configs")]
     public NavMeshObstacle navObstacle;
@@ -175,7 +175,9 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (IsOpen)
         {
-            doorCreaking.Play();
+            if (doorClosing != null) doorClosing.Play();
+            else if (doorCreaking != null) doorCreaking.Play();
+
             if (navObstacle != null)
                     navObstacle.enabled = false;
             if (AnimationCoroutine != null)

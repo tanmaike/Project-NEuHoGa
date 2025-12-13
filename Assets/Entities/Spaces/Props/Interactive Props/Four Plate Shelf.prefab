@@ -113,6 +113,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 068e8aa9e8bd38e4d9c6de6ee793b900, type: 2}
   - {fileID: 11400000, guid: 24b25e8957edbc54daea29c39204ece7, type: 2}
   - {fileID: 11400000, guid: eb1917261dbc72c43bd25e5bb624250f, type: 2}
+  placePlateSound: {fileID: 8300000, guid: dc7c82f011e0f774c913d347cde02fa4, type: 3}
 --- !u!1 &4998046164988475140
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 068e8aa9e8bd38e4d9c6de6ee793b900, type: 2}
   - {fileID: 11400000, guid: 24b25e8957edbc54daea29c39204ece7, type: 2}
   - {fileID: 11400000, guid: eb1917261dbc72c43bd25e5bb624250f, type: 2}
+  placePlateSound: {fileID: 8300000, guid: dc7c82f011e0f774c913d347cde02fa4, type: 3}
 --- !u!1 &5257528947373514629
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +277,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 068e8aa9e8bd38e4d9c6de6ee793b900, type: 2}
   - {fileID: 11400000, guid: 24b25e8957edbc54daea29c39204ece7, type: 2}
   - {fileID: 11400000, guid: eb1917261dbc72c43bd25e5bb624250f, type: 2}
+  placePlateSound: {fileID: 8300000, guid: dc7c82f011e0f774c913d347cde02fa4, type: 3}
 --- !u!1 &8143644082951965735
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +359,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 068e8aa9e8bd38e4d9c6de6ee793b900, type: 2}
   - {fileID: 11400000, guid: 24b25e8957edbc54daea29c39204ece7, type: 2}
   - {fileID: 11400000, guid: eb1917261dbc72c43bd25e5bb624250f, type: 2}
+  placePlateSound: {fileID: 8300000, guid: dc7c82f011e0f774c913d347cde02fa4, type: 3}
 --- !u!1001 &8650812112720912624
 PrefabInstance:
   m_ObjectHideFlags: 0

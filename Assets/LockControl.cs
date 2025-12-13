@@ -7,6 +7,7 @@ public class LockControl : MonoBehaviour
     private int[] result, correctCombination;
     private bool padlockSolved;
     public InteractableItem spawnedItem;
+    public AudioClip dialSolved;
 
     void Start()
     {
@@ -31,7 +32,8 @@ public class LockControl : MonoBehaviour
         }
         if (!padlockSolved && result[0] == correctCombination[0] && result[1] == correctCombination[1] && result[2] == correctCombination[2]) {
             padlockSolved = true;
-            HUDNotification.Instance.displayMessage("The padlock unlocks.");
+            AudioSource.PlayClipAtPoint(dialSolved, transform.position);
+            HUDNotification.Instance.displayMessage("The padlock unlocks, spitting out a key.");
             if (spawnedItem != null) spawnedItem.gameObject.SetActive(true);
         }
     }
