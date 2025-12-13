@@ -27,12 +27,22 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        actualHealth = currentHealth;
-
+        actualHealth -= damageAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, (int)slider.maxValue);
-
-        slider.value = currentHealth;
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        if (actualHealth <= 20 && actualHealth > 10)
+        {
+            slider.value = 25;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        } else if(actualHealth <= 10 && actualHealth > 0)
+        {
+            slider.value = 22;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
+        else
+        {
+            slider.value = currentHealth;
+            fill.color = gradient.Evaluate(slider.normalizedValue);
+        }
 
         if (currentHealth <= 0)
         {
@@ -63,13 +73,6 @@ public class HealthSystem : MonoBehaviour
         {
             slider.value = currentHealth;
             fill.color = gradient.Evaluate(slider.normalizedValue);
-        }
-    }
-    public void Update()
-    {
-        if (currentHealth <= 0)
-        {
-            die();
         }
     }
     public void die()
