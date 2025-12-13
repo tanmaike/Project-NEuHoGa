@@ -21,6 +21,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     private bool canBePickedUp = true;
     private Vector3 startPosition;
     private Transform playerTransform;
+    public AudioSource pickupSound;
     
     void Start()
     {
@@ -95,7 +96,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     private void PickUp()
     {
         HUDNotification.Instance.displayMessage("Picked up " + item.itemName + ".");
-        
+        pickupSound.Play();
         gameObject.SetActive(false);
         canBePickedUp = false;
     }

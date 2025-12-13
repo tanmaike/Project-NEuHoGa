@@ -14,6 +14,8 @@ public class PlatePuzzle : MonoBehaviour
     public bool puzzleSolved = false;
     public InteractableItem spawnedItem;
 
+    public AudioSource drainGlug;
+
     private void Start()
     {
         foreach (var frame in frames) frame.OnItemChanged += OnFrameUpdated;
@@ -37,6 +39,7 @@ public class PlatePuzzle : MonoBehaviour
 
     private void PuzzleSolved()
     {
+        drainGlug.Play();
         HUDNotification.Instance.displayMessage("The sink drains.");
         if (spawnedItem != null) spawnedItem.gameObject.SetActive(true);
     }

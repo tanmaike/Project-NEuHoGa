@@ -42,6 +42,8 @@ public class Door : MonoBehaviour, IInteractable
     public InteractableItem spawnedItem;
     private bool hasItemSpawned = false;
 
+    public AudioSource doorCreaking, doorLocked, doorUnlocked;
+
     [Header("Navmesh Configs")]
     public NavMeshObstacle navObstacle;
     private Coroutine AnimationCoroutine;
@@ -65,11 +67,13 @@ public class Door : MonoBehaviour, IInteractable
 
         if (needsKey && item != requiredKey)
         {
+            if (doorLocked != null) doorLocked.Play();
             HUDNotification.Instance.displayMessage(requiredKey.itemName + " required.");
             return;
         }
         else if (needsKey && item == requiredKey) {
             inv.RemoveItem(item);
+            if (doorUnlocked != null) doorUnlocked.Play();
             HUDNotification.Instance.displayMessage("Unlocked using " + requiredKey.itemName + ".");
             needsKey = false; // permanently unlocks the door
         }
@@ -105,6 +109,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!IsOpen)
         {
+            if (doorCreaking != null) doorCreaking.Play();
             //if (isPortalDoor) portal.gameObject.SetActive(true);
             if (navObstacle != null) navObstacle.enabled = true;
             if (AnimationCoroutine != null)
@@ -170,6 +175,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (IsOpen)
         {
+            doorCreaking.Play();
             if (navObstacle != null)
                     navObstacle.enabled = false;
             if (AnimationCoroutine != null)
