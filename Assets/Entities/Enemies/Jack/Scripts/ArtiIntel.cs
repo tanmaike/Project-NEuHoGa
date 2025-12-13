@@ -29,6 +29,8 @@ public class HostileAI : MonoBehaviour
     public Transform FirePoint;
     public GameObject Fire;
     public AudioClip gunshot;
+    [SerializeField] private int attackDamage = 25;
+    [SerializeField] private float muzzleFlashDuration = 0.05f;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
@@ -46,6 +48,8 @@ public class HostileAI : MonoBehaviour
         animator = GetComponent<Animator>();
 
         animator.SetBool("isPatroling", true);
+
+        if (Fire != null) Fire.SetActive(false);
 
         if (playerTransform == null)
         {
@@ -98,17 +102,38 @@ public class HostileAI : MonoBehaviour
         if (projectilePrefab == null || firePoint == null) return;
         
         RaycastHit hit; 
+        float maxRange = 100f;
 
-        if(Physics.Raycast(firePoint.position, transform.TransformDirection(Vector3.forward), out hit, 100))
+        if(Physics.Raycast(firePoint.position, transform.forward, out hit, maxRange))
         {
-            Debug.DrawRay(firePoint.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            StartCoroutine(MuzzleFlashCoroutine());
             AudioSource.PlayClipAtPoint(gunshot, transform.position);
+            Debug.DrawRay(firePoint.position, transform.forward * hit.distance, Color.yellow, 0.5f);
+            
+            HealthSystem targetHealth = hit.collider.GetComponent<HealthSystem>();
 
-            GameObject bullet = Instantiate(Fire, firePoint.position, Quaternion.identity);
-
-            Destroy(bullet, 0.1f);
+            if (targetHealth != null)
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    targetHealth.TakeDamage(attackDamage);
+                }
+            }
+            HUDNotification.Instance.displayMessage("You feel a sharp pain in your abdomen.");
         }
+        else
+        {
+            Debug.DrawRay(firePoint.position, transform.forward * maxRange, Color.green, 0.5f);
+            StartCoroutine(MuzzleFlashCoroutine());
+            AudioSource.PlayClipAtPoint(gunshot, transform.position);
+        }
+    }
 
+    private IEnumerator MuzzleFlashCoroutine()
+    {
+        if (Fire != null) Fire.SetActive(true);
+        yield return new WaitForSeconds(muzzleFlashDuration);
+        if (Fire != null) Fire.SetActive(false);
     }
 
     private void FindPatrolPoint()
@@ -172,6 +197,7 @@ public class HostileAI : MonoBehaviour
         if (hasPatrolPoint)
         {
             navAgent.SetDestination(currentPatrolPoint);
+            animator.SetBool("isPatroling", true);
             
             if (navAgent.remainingDistance <= navAgent.stoppingDistance && !navAgent.pathPending)
             {
@@ -179,7 +205,6 @@ public class HostileAI : MonoBehaviour
                 {
                     StartWaitingAtPoint();
                 }
-                animator.SetBool("isPatroling", true);
             }
         }
     }
@@ -194,6 +219,11 @@ public class HostileAI : MonoBehaviour
 
     private void PerformChase()
     {
+        if (navAgent.isStopped)
+        {
+            navAgent.isStopped = false;
+        }
+
         if (playerTransform != null)
         {
             navAgent.SetDestination(playerTransform.position);
@@ -205,15 +235,21 @@ public class HostileAI : MonoBehaviour
         if (isOnAttackCooldown)
             yield break;
 
-        animator.SetTrigger("attackTrigger");
         isOnAttackCooldown = true;
 
-        yield return new WaitForSeconds(0.1f);
+        float animationFireTime = 0.4f;
+        yield return new WaitForSeconds(animationFireTime);
+        
         FireProjectile();
 
-        yield return new WaitForSeconds(attackCooldown);
+        float remainingCooldown = attackCooldown - animationFireTime;
+        if (remainingCooldown > 0)
+        {
+            yield return new WaitForSeconds(remainingCooldown);
+        }
+        
         isOnAttackCooldown = false;
-    }
+    }   
 
     private void PerformAttack()
     {
@@ -228,28 +264,32 @@ public class HostileAI : MonoBehaviour
 
         if (!isOnAttackCooldown)
         {
-            FireProjectile();
-            StartCoroutine(AttackCooldownRoutine());
-            StartCoroutine(ResetAttackAnimation());
+            StartCoroutine(AttackSequence()); 
         }
     }
 
     private void UpdateBehaviourState()
     {
-        if (!isPlayerVisible && !isPlayerInRange)
+        DetectPlayer(); 
+
+        if (isPlayerVisible && isPlayerInRange)
         {
             animator.SetBool("isChasing", false);
-            PerformPatrol();
+            animator.SetBool("isPatroling", false); 
+            
+            PerformAttack(); 
         }
         else if (isPlayerVisible && !isPlayerInRange)
         {
             animator.SetBool("isChasing", true);
+            animator.SetBool("isPatroling", false);
+            
             PerformChase();
         }
-        else if (isPlayerVisible && isPlayerInRange)
-        {
-            if (!isOnAttackCooldown)
-                StartCoroutine(AttackSequence());
+        else {
+            animator.SetBool("isChasing", false);
+            
+            PerformPatrol(); 
         }
     }
 }

@@ -67,6 +67,7 @@ public class PlayerMovement : PortalTraveller {
 
     void Start () {
         cam = Camera.main;
+        AudioListener.pause = true;
 
         controller = GetComponent<CharacterController>();
 
@@ -80,6 +81,8 @@ public class PlayerMovement : PortalTraveller {
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        healthSystem = GetComponent<HealthSystem>();
 
         // Initialize Health
         if (healthSystem != null)
@@ -96,6 +99,8 @@ public class PlayerMovement : PortalTraveller {
         {
             staminaSystem.SetMaxStamina(100f); 
         }
+
+        AudioListener.pause = false;
     }
 
     void Update() {

@@ -26,26 +26,17 @@ public class HealthSystem : MonoBehaviour
     // Call this function to DEAL DAMAGE
     public void TakeDamage(int damageAmount)
     {
-        // Subtract the damage
         currentHealth -= damageAmount;
         actualHealth = currentHealth;
 
-        // Clamp the value so it never goes below 0
         currentHealth = Mathf.Clamp(currentHealth, 0, (int)slider.maxValue);
 
-        if (actualHealth <= 20 && actualHealth > 10)
+        slider.value = currentHealth;
+        fill.color = gradient.Evaluate(slider.normalizedValue);
+
+        if (currentHealth <= 0)
         {
-            slider.value = 25;
-            fill.color = gradient.Evaluate(slider.normalizedValue);
-        } else if(actualHealth <= 10 && actualHealth > 0)
-        {
-            slider.value = 22;
-            fill.color = gradient.Evaluate(slider.normalizedValue);
-        }
-        else
-        {
-            slider.value = currentHealth;
-            fill.color = gradient.Evaluate(slider.normalizedValue);
+            die();
         }
     }
 

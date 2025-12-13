@@ -7,6 +7,7 @@ public class DoorTrigger : MonoBehaviour
     public float distance = 3f;
     public LayerMask layerMask;
     private bool? isOpen = null; 
+    public bool isLocked;
 
     private void Start()
     {
@@ -23,18 +24,21 @@ public class DoorTrigger : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, distance, layerMask);
         bool currentlyOpen = colliders.Length > 0;
 
-        if (isOpen == null || currentlyOpen != isOpen.Value)
-        {
-            isOpen = currentlyOpen;
+        if (isLocked) return;
+        else {
+            if (isOpen == null || currentlyOpen != isOpen.Value)
+            {
+                isOpen = currentlyOpen;
 
-            if (isOpen.Value)
-            {
-                Vector3 userPos = GetClosestPosition(colliders);
-                door.Open(userPos);
-            }
-            else
-            {
-                door.Close();
+                if (isOpen.Value)
+                {
+                    Vector3 userPos = GetClosestPosition(colliders);
+                    door.Open(userPos);
+                }
+                else
+                {
+                    door.Close();
+                }
             }
         }
     }

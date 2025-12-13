@@ -39,7 +39,7 @@ public class Door : MonoBehaviour, IInteractable
     public Item requiredKey;
 
     [Header("Item Configuration")]
-    public InteractableItem spawnedItem;
+    public GameObject spawnedItem;
     private bool hasItemSpawned = false;
 
     public AudioSource doorCreaking, doorClosing, doorLocked, doorUnlocked;
@@ -61,6 +61,10 @@ public class Door : MonoBehaviour, IInteractable
         //if (isPortalDoor) portal.gameObject.SetActive(false);
     }
 
+    public void Unlock() {
+        needsKey = false;
+    }
+
     public void Interact(Vector3 interactorPosition, Item item)
     {
         Inventory inv = FindObjectOfType<Inventory>();
@@ -69,6 +73,12 @@ public class Door : MonoBehaviour, IInteractable
         {
             if (doorLocked != null) doorLocked.Play();
             HUDNotification.Instance.displayMessage(requiredKey.itemName + " required.");
+            return;
+        }
+        else if (needsKey && requiredKey == null)
+        {
+            if (doorLocked != null) doorLocked.Play();
+            HUDNotification.Instance.displayMessage("It won't budge.");
             return;
         }
         else if (needsKey && item == requiredKey) {
