@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
     private GameObject CurrentMenu;
     private GameObject NextMenu;
     private GameObject Holding;
-
+    public AudioSource openNotes, openInventory;
 
     // Start is called before the first frame update
     void Awake()
@@ -39,6 +39,7 @@ public class InventoryManager : MonoBehaviour
                 Holding = CurrentMenu;
                 CurrentMenu = NextMenu;
                 NextMenu = Holding;
+                openInventory.Play();
             }
         }
 
@@ -46,20 +47,20 @@ public class InventoryManager : MonoBehaviour
         {
             if (IsOpen == false)
             {
+                openInventory.Play();
                 CurrentMenu.SetActive(true);
                 IsOpen = true;
                 playerMovement.SetInventoryState(true);
-                Debug.Log("esc pressed to on");
             }
-            else
+            else 
             {
+                openInventory.Play();
                 CurrentMenu = Inventory;
                 NextMenu = Notes;
                 NextMenu.SetActive(false);
                 CurrentMenu.SetActive(false);
                 IsOpen = false;
                 playerMovement.SetInventoryState(false);
-                Debug.Log("esc pressed to off");
             }
         }
     }

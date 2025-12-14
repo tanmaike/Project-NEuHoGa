@@ -60,7 +60,8 @@ public class PlayerMovement : PortalTraveller {
     float lastGroundedTime;
 
     private bool isPaused = false;
-    private Vector3 currentVelocity;
+    private Vector3 currentVelocity; 
+    public AudioSource ambience;
 
     // -- STAMINA VAR --
     private bool isSprinting; // Track sprinting status for movement and stamina logic
@@ -101,6 +102,13 @@ public class PlayerMovement : PortalTraveller {
         }
 
         AudioListener.pause = false;
+        StartCoroutine(unmuteGame());
+    }
+
+    private IEnumerator unmuteGame()
+    {
+        yield return new WaitForSeconds(2f);
+        AudioListener.pause = true;
     }
 
     void Update() {

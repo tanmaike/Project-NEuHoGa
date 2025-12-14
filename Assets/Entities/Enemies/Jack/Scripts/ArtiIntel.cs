@@ -10,6 +10,8 @@ public class HostileAI : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
     private Animator animator;
+    public AudioSource footsteps;
+    public AudioSource chaseMusic;
 
     [Header("Layers")]
     [SerializeField] private LayerMask terrainLayer;
@@ -48,6 +50,7 @@ public class HostileAI : MonoBehaviour
         animator = GetComponent<Animator>();
 
         animator.SetBool("isPatroling", true);
+        chaseMusic.enabled = true;
 
         if (Fire != null) Fire.SetActive(false);
 
@@ -198,6 +201,7 @@ public class HostileAI : MonoBehaviour
         {
             navAgent.SetDestination(currentPatrolPoint);
             animator.SetBool("isPatroling", true);
+            footsteps.enabled = true;
             
             if (navAgent.remainingDistance <= navAgent.stoppingDistance && !navAgent.pathPending)
             {
@@ -212,6 +216,7 @@ public class HostileAI : MonoBehaviour
     private void StartWaitingAtPoint()
     {
         animator.SetBool("isPatroling", false);
+        footsteps.enabled = false;
         isWaitingAtPoint = true;
         waitTimer = 0f;
         navAgent.isStopped = true; 
@@ -236,6 +241,7 @@ public class HostileAI : MonoBehaviour
             yield break;
 
         isOnAttackCooldown = true;
+        animator.SetTrigger("attackTrigger");
 
         float animationFireTime = 0.4f;
         yield return new WaitForSeconds(animationFireTime);
@@ -278,6 +284,7 @@ public class HostileAI : MonoBehaviour
             animator.SetBool("isPatroling", false); 
             
             PerformAttack(); 
+            footsteps.enabled = false;
         }
         else if (isPlayerVisible && !isPlayerInRange)
         {
