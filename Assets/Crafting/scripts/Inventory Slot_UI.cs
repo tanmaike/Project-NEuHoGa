@@ -29,16 +29,37 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             return;
         }
 
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (slot.item != null)
-            {
-                PlayerEquipment equipment = FindObjectOfType<PlayerEquipment>();
-                if (equipment != null) {
-                    equipment.Equip(slot.item);
+        if (slot.item is HealingItem)
+                {
+                    //Convert the generic Item to a HealingItem
+                    HealingItem healingItem = (HealingItem)slot.item;
+                    
+                    //Find the player's health
+                    HealthSystem playerHealth = FindObjectOfType<HealthSystem>();
+
+                    if (playerHealth != null)
+                    {
+                        //Don't use  if health is full
+                        if (playerHealth.actualHealth >= playerHealth.slider.maxValue)
+                        {
+                             HUDNotification.Instance.displayMessage("Health is already full!");
+                             return;
+                        }
+
+                        //Heal the player
+                        playerHealth.Heal(healingItem.healAmount);
+
+                        //remove 1 unit from the inventory
+                        inventory.RemoveFromSlot(slotIndex, 1);
+                    }
                 }
-            }
-        }
+                else 
+                {
+                    PlayerEquipment equipment = FindObjectOfType<PlayerEquipment>();
+                    if (equipment != null) {
+                        equipment.Equip(slot.item);
+                    }
+                }
     }
 
     // This updates the slot's visual (icon and quantity)

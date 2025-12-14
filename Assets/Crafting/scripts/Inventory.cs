@@ -70,20 +70,30 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    // Remove a specific quantity from a specific slot
     public void RemoveFromSlot(int slotIndex, int quantityToRemove)
     {
         if (slotIndex < 0 || slotIndex >= slots.Count) return;
-        
+
         var slot = slots[slotIndex];
+        
+        // Check if we have an item to remove
         if (slot.item != null && slot.quantity >= quantityToRemove)
         {
             TryUnequipIfEquipped(slot.item);
+            
+            // Subtract the amount
             slot.quantity -= quantityToRemove;
+            
+            Debug.Log($"Removed {quantityToRemove} from slot {slotIndex}. Remaining: {slot.quantity}");
+
+            // CRITICAL STEP: If quantity is 0, destroy the item in the slot
             if (slot.quantity <= 0)
             {
                 slots[slotIndex] = new InventorySlot(null, 0);
+                Debug.Log($"Slot {slotIndex} is now empty.");
             }
+
+            // Tell the UI to refresh
             OnSlotChanged?.Invoke(slotIndex);
         }
     }
