@@ -124,6 +124,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 512
+  isLocked: 0
 --- !u!54 &7753682824201181469
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -324,7 +325,7 @@ MonoBehaviour:
   requiredKey: {fileID: 0}
   spawnedItem: {fileID: 0}
   doorCreaking: {fileID: 9038951573588071945}
-  doorClosing: {fileID: 0}
+  doorClosing: {fileID: 8376456566407674503}
   doorLocked: {fileID: 8376456566407674503}
   doorUnlocked: {fileID: 5186912336551889292}
   navObstacle: {fileID: 6126016797244741681}
@@ -469,7 +470,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e8da2d485c4ecb8459817ccb374558c2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fb200b3d345693a4aa5d0a758f46f14f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

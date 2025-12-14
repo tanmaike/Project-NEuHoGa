@@ -149,7 +149,7 @@ MonoBehaviour:
   requiredKey: {fileID: 0}
   spawnedItem: {fileID: 0}
   doorCreaking: {fileID: 1526161224015630471}
-  doorClosing: {fileID: 0}
+  doorClosing: {fileID: 1526161224015630471}
   doorLocked: {fileID: 3581599291576119757}
   doorUnlocked: {fileID: 867781517960144600}
   navObstacle: {fileID: 0}
@@ -281,7 +281,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e8da2d485c4ecb8459817ccb374558c2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fb200b3d345693a4aa5d0a758f46f14f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

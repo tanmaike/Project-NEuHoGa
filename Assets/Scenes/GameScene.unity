@@ -6604,6 +6604,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1259821338755332121, guid: 5a714651246341c42b47486255cd0348, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fb200b3d345693a4aa5d0a758f46f14f, type: 3}
     - target: {fileID: 3266425500130255247, guid: 5a714651246341c42b47486255cd0348, type: 3}
       propertyPath: m_Name
       value: Wooden Chest (1)
@@ -6652,6 +6656,10 @@ PrefabInstance:
       propertyPath: needsKey
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8559647252280000282, guid: 5a714651246341c42b47486255cd0348, type: 3}
+      propertyPath: doorClosing
+      value: 
+      objectReference: {fileID: 1230967009}
     - target: {fileID: 8559647252280000282, guid: 5a714651246341c42b47486255cd0348, type: 3}
       propertyPath: requiredKey
       value: 
@@ -7491,6 +7499,10 @@ PrefabInstance:
       propertyPath: spawnedItem
       value: 
       objectReference: {fileID: 2044018665}
+    - target: {fileID: 641778146252440745, guid: 79f577f18108cbb4abec4bf1b683723d, type: 3}
+      propertyPath: dialTurn
+      value: 
+      objectReference: {fileID: 8300000, guid: fb200b3d345693a4aa5d0a758f46f14f, type: 3}
     - target: {fileID: 1063353277855489061, guid: 79f577f18108cbb4abec4bf1b683723d, type: 3}
       propertyPath: m_Name
       value: wheel1
@@ -7603,6 +7615,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: wheel2
       objectReference: {fileID: 0}
+    - target: {fileID: 8945767758587593165, guid: 79f577f18108cbb4abec4bf1b683723d, type: 3}
+      propertyPath: dialTurn
+      value: 
+      objectReference: {fileID: 8300000, guid: fb200b3d345693a4aa5d0a758f46f14f, type: 3}
+    - target: {fileID: 9047621952560911918, guid: 79f577f18108cbb4abec4bf1b683723d, type: 3}
+      propertyPath: dialTurn
+      value: 
+      objectReference: {fileID: 8300000, guid: fb200b3d345693a4aa5d0a758f46f14f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18788,6 +18808,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &1230967009 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1259821338755332121, guid: 5a714651246341c42b47486255cd0348, type: 3}
+  m_PrefabInstance: {fileID: 393012823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1231972386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24767,7 +24792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
