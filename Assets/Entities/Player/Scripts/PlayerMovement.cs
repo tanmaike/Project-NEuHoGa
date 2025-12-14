@@ -68,7 +68,7 @@ public class PlayerMovement : PortalTraveller {
 
     void Start () {
         cam = Camera.main;
-        AudioListener.pause = true;
+        AudioListener.volume = 0f;
 
         controller = GetComponent<CharacterController>();
 
@@ -100,15 +100,15 @@ public class PlayerMovement : PortalTraveller {
         {
             staminaSystem.SetMaxStamina(100f); 
         }
+        HUDNotification.Instance.displayMessage("Press E to Interact with Items and Notes.\nPress Q to Open your Inventory");
 
-        AudioListener.pause = false;
         StartCoroutine(unmuteGame());
     }
 
     private IEnumerator unmuteGame()
     {
         yield return new WaitForSeconds(2f);
-        AudioListener.pause = true;
+        AudioListener.volume = 1f;
     }
 
     void Update() {
