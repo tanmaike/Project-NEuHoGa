@@ -100,7 +100,7 @@ public class PlayerMovement : PortalTraveller {
         {
             staminaSystem.SetMaxStamina(100f); 
         }
-        HUDNotification.Instance.displayMessage("Press E to Interact with Items and Notes.\nPress Q to Open your Inventory");
+        HUDNotification.Instance.displayMessage("Press E to Interact with Items and Notes.\nPress Esc to Open your Inventory");
 
         StartCoroutine(unmuteGame());
     }
